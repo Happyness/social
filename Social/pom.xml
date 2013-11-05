@@ -38,7 +38,11 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>4.2.7.Final</version>
 		</dependency>
+<<<<<<< HEAD
 				
+=======
+		
+>>>>>>> 609547a4f1fcefac99380f14515b85c14fa18ba5
 		<!-- MYSQL -->
 		<dependency>
 			<groupId>mysql</groupId>
