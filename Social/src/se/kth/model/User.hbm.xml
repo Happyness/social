@@ -6,13 +6,16 @@
     <class name="se.kth.model.User" table="USER">
         <id name="id" type="int">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="username" type="java.lang.String">
             <column name="USERNAME" />
         </property>
         <property name="password" type="java.lang.String">
             <column name="PASSWORD" />
+        </property>
+        <property name="timestamp" type="java.util.Date">
+            <column name="TIMESTAMP" />
         </property>
     </class>
 </hibernate-mapping>
