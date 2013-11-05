@@ -38,6 +38,14 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>4.2.7.Final</version>
 		</dependency>
+				
+		<!-- MYSQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.26</version>
+		</dependency>
+            
 
 
 	</dependencies>
