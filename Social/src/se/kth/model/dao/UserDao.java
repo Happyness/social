@@ -3,6 +3,7 @@ package se.kth.model.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Example;
 
 import se.kth.model.bo.User;
 import se.kth.resource.HibernateUtil;
@@ -32,6 +33,20 @@ public class UserDao {
 				// TODO: instance found
 			}
 			return user;
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
+	
+	public User getUser(User user) {
+		try {
+			List<User> results = (List<User>) sessionFactory.getCurrentSession().createCriteria(User.class).add(Example.create(user)).list();
+			if (results.size() == 0) {
+				return null;
+			} 
+			else {
+				return results.get(0);
+			}
 		} catch (RuntimeException re) {
 			throw re;
 		}

@@ -12,9 +12,11 @@ public class Demo {
 	{
 
 		UserDao userDao = new UserDao();
+		User tmp = new User();
+		tmp.setUsername("jo");
 		
 		Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-			User user = userDao.getUser(1);
+			User user = userDao.getUser(tmp);
 		tx.commit();
 		System.out.println(user.getUsername());
 
