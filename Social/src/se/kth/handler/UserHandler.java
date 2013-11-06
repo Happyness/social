@@ -1,9 +1,9 @@
 package se.kth.handler;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
-import se.kth.Application;
 import se.kth.resource.HibernateUtil;
 import se.kth.resource.Security;
 import se.kth.model.bo.User;
@@ -16,7 +16,7 @@ import org.hibernate.Transaction;
 
 @ManagedBean
 @SessionScoped
-public class UserHandler extends Application implements Serializable
+public class UserHandler implements Serializable
 {
 	private UserDao userDao;
 	private User user;
@@ -36,9 +36,9 @@ public class UserHandler extends Application implements Serializable
 		return user;
 	}
 	
-	public void setUser(int id)
+	public void setUser(User user)
 	{
-		user = userDao.getUser(id);
+		this.user = user;
 	}
 	
 	public void createUser(String username, String password) throws Exception
@@ -68,9 +68,15 @@ public class UserHandler extends Application implements Serializable
 		User user = userDao.getUser(tmp);
 		trans.commit();
 		
-		if (user != null && user.getPassword() == Security.getHash(password)) {
-			return true;
-		} else {
+		try {
+			if (user != null && user.getPassword() == Security.getHash(password)) {
+				setUser(user);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}

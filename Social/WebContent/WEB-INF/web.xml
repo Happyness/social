@@ -8,9 +8,14 @@
 	<display-name>Social</display-name>
  
 	<!-- Change to "Production" when you are ready to deploy -->
+	<!-- Faces config for development -->
 	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
+	    <param-name>javax.faces.PROJECT_STAGE</param-name>
+	    <param-value>Development</param-value>
+	</context-param>
+	<context-param>
+	    <param-name>com.sun.faces.enableMissingResourceLibraryDetection</param-name>
+	    <param-value>true</param-value>
 	</context-param>
  
 	<!-- Welcome page -->

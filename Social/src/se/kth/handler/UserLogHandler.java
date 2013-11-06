@@ -1,11 +1,15 @@
 package se.kth.handler;
 
-import se.kth.model.bo.User;
-import se.kth.model.dao.UserDao;
+import java.io.Serializable;
 
-public class UserLogHandler {
-	private UserLogDao userLogDao;
-	private UserLog userLog;
+//import javax.faces.bean.ManagedBean;
+//import javax.faces.bean.SessionScoped;
+
+
+public class UserLogHandler implements Serializable
+{
+	//private UserLogDao userLogDao;
+	//private UserLog userLog;
 	/**
 	 * 
 	 */
@@ -14,9 +18,10 @@ public class UserLogHandler {
 	public UserLogHandler()
 	{
 		super();
-		userLogDao = new UserLogDao();
+		//userLogDao = new UserLogDao();
 	}
 	
+	/*
 	public UserLog getUserLog()
 	{
 		return userLog;
@@ -25,5 +30,5 @@ public class UserLogHandler {
 	public void setUserLog(int id)
 	{
 		userLog = userLogDao.getLog(id);
-	}
+	}*/
 }
