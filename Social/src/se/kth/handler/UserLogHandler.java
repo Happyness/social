@@ -5,7 +5,6 @@ import java.io.Serializable;
 //import javax.faces.bean.ManagedBean;
 //import javax.faces.bean.SessionScoped;
 
-
 public class UserLogHandler implements Serializable
 {
 	//private UserLogDao userLogDao;

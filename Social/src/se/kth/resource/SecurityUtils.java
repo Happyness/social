@@ -3,7 +3,7 @@ package se.kth.resource;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Security
+public class SecurityUtils
 {
 	public static String getHash(String value) throws NoSuchAlgorithmException
 	{

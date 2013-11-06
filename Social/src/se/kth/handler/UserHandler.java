@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
-import se.kth.resource.HibernateUtil;
-import se.kth.resource.Security;
 import se.kth.model.bo.User;
 import se.kth.model.dao.UserDao;
+import se.kth.resource.HibernateUtil;
+import se.kth.resource.SecurityUtils;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -69,7 +69,7 @@ public class UserHandler implements Serializable
 		trans.commit();
 		
 		try {
-			if (user != null && user.getPassword() == Security.getHash(password)) {
+			if (user != null && user.getPassword() == SecurityUtils.getHash(password)) {
 				setUser(user);
 				return true;
 			} else {
