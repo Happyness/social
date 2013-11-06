@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2013-nov-05 12:30:34 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="se.kth.model.User" table="USER">
+    <class name="se.kth.model.bo.User" table="USER">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="identity" />

@@ -1,4 +1,4 @@
-package se.kth.model;
+package se.kth.model.bo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,6 +20,16 @@ public class User implements Serializable  {
 	private String username;
 	private String password;
 	private Date timestamp;
+	
+	public User() {
+	}
+	
+	public User(int id, String username, String password, Date timestamp) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.timestamp = timestamp;
+	}
 	
 	public int getId() {
 		return id;

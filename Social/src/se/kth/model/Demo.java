@@ -1,26 +1,23 @@
 package se.kth.model;
-import java.util.Date;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+import se.kth.model.bo.User;
+import se.kth.model.dao.UserDao;
+import se.kth.resource.HibernateUtil;
 
 public class Demo {
 
 	public static void main(String[] args)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+
+		UserDao userDao = new UserDao();
 		
-		User student = new User();
-		student.setUsername("joel");
-		student.setPassword("joel");
-		student.setTimestamp(new Date());
-		
-		session.save(student);
-		session.getTransaction().commit();
-		
-		session.close();
+		Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+			User user = userDao.getUser(1);
+		tx.commit();
+		System.out.println(user.getUsername());
+
 
 	}
 }

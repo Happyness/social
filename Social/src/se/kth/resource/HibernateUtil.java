@@ -1,4 +1,4 @@
-package se.kth.model;
+package se.kth.resource;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
