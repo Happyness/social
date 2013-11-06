@@ -40,6 +40,7 @@ public class UserDao {
 	
 	public User getUser(User user) {
 		try {
+			@SuppressWarnings("unchecked")
 			List<User> results = (List<User>) sessionFactory.getCurrentSession().createCriteria(User.class).add(Example.create(user)).list();
 			if (results.size() == 0) {
 				return null;

@@ -3,19 +3,23 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2013-nov-05 12:30:34 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="se.kth.model.bo.User" table="USER">
-        <id name="id" type="int">
-            <column name="ID" />
-            <generator class="identity" />
-        </id>
-        <property name="username" type="java.lang.String">
-            <column name="USERNAME" />
-        </property>
-        <property name="password" type="java.lang.String">
-            <column name="PASSWORD" />
-        </property>
-        <property name="timestamp" type="java.util.Date">
-            <column name="TIMESTAMP" />
-        </property>
-    </class>
+	<class name="se.kth.model.bo.User" table="USER">
+		<id name="id" type="int">
+			<column name="ID" />
+			<generator class="identity" />
+		</id>
+		<property name="username" type="java.lang.String">
+			<column name="USERNAME" />
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="PASSWORD" />
+		</property>
+		<property name="timestamp" type="java.util.Date">
+			<column name="TIMESTAMP" />
+		</property>
+		<one-to-one name="userProfile" class="se.kth.model.bo.UserProfile"
+			cascade="save-update">
+		</one-to-one>
+
+	</class>
 </hibernate-mapping>
