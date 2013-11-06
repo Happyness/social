@@ -3,18 +3,18 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
-   <ui:define name="title">Welcome</ui:define>
+   <ui:define name="title">Skapa användare</ui:define>
 
     <ui:define name="content">
-    	<h:outputText value="#{login.response}" />
+    	<h:outputText value="#{userHandler.response}" />
     	<h:form>
-	    <h:panelGrid columns="2" rendered="#{!tokenSession.authorized}">
+	    <h:panelGrid columns="2">
 	        <h:outputLabel for="username">Username:</h:outputLabel>
-	        <h:inputText id="username" required="true" value="#{login.username}"/>
+	        <h:inputText id="username" required="true" value="#{userHandler.username}"/>
 	        <h:outputLabel for="password">Password:</h:outputLabel>
-	        <h:inputText id="password" required="true"  value="#{login.password}" />
+	        <h:inputText id="password" required="true"  value="#{userHandler.password}" />
 	    </h:panelGrid>
-    	   <h:commandButton value="Logga in" action="#{login.doLogin}"></h:commandButton>
+    	   <h:commandButton value="Skapa användare" action="#{userHandler.createUser}"></h:commandButton>
     	</h:form>
     	<h:link></h:link>
     </ui:define>
