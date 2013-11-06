@@ -15,7 +15,6 @@ public class Application
 	
 	public Application()
 	{
-		session = HibernateUtil.getSessionFactory().openSession();
 	}
 	
 	public Session getSession()
