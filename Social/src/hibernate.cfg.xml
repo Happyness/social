@@ -12,5 +12,7 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 		<mapping resource="se/kth/model/bo/User.hbm.xml"></mapping>
 		<mapping resource="se/kth/model/bo/UserProfile.hbm.xml"></mapping>
+		<mapping resource="se/kth/model/bo/UserLogMessage.hbm.xml"></mapping>
+		<mapping resource="se/kth/model/bo/PrivateMessage.hbm.xml"></mapping>
 	</session-factory>
 </hibernate-configuration>

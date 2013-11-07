@@ -4,8 +4,9 @@ import java.util.Date;
 
 import org.hibernate.Transaction;
 
+import se.kth.model.bo.PrivateMessage;
 import se.kth.model.bo.User;
-import se.kth.model.bo.UserProfile;
+import se.kth.model.dao.PrivateMessageDao;
 import se.kth.model.dao.UserDao;
 import se.kth.resource.HibernateUtil;
 
@@ -15,21 +16,26 @@ public class Demo {
 	{
 
 		UserDao userDao = new UserDao();
-		User user = new User();
-		user.setUsername("username");
-		user.setPassword("password");
-		user.setTimestamp(new Date());
-		UserProfile userProfile = new UserProfile();
-		userProfile.setFirstName("Mats");
-		userProfile.setSurname("Maatson");
-		userProfile.setEmail("mats.maatson@gmail.com");
-		userProfile.setDob(new Date(87, 2, 12));
-		user.setUserProfile(userProfile);
-		
+		PrivateMessageDao pmDao = new PrivateMessageDao();
 		
 		Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-			userDao.addUser(user);
+			User user = userDao.getUser(1);
+			User user2 = userDao.getUser(3);
 		tx.commit();
+		PrivateMessage pm = new PrivateMessage();
+		pm.setMessage("Test message 2");
+		pm.setFromUser(user);
+		pm.setToUser(user2);
+		pm.setTimestamp(new Date());
+		
+		
+
+		
+		Transaction tx2 = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+			pmDao.addPrivateMessage(pm);
+			System.out.println("Message: " + pmDao.getPrivateMessagesFrom(user).get(0).getMessage());
+			System.out.println("Message: " + pmDao.getPrivateMessagesFrom(user).get(1).getMessage());
+		tx2.commit();
 
 
 	}
