@@ -7,8 +7,16 @@
     <body>
 	    <ui:composition>
 		<ul>
-			<li>Default menu</li>
-			<li><a href="/Social/login.xhtml">Logga in</a></li>
+			<li><h:link outcome="/index">Home</h:link></li>
+			 <h:panelGroup id="login" rendered="#{!tokenSession.authorized}">
+		     <li><h:link outcome="/login">Login</h:link></li>
+		      </h:panelGroup>
+		      <h:panelGroup id="admin" rendered="#{tokenSession.isAdmin and tokenSession.authorized}">
+		      <li><h:link outcome="/admin/create_user">Create User</h:link></li>
+		      </h:panelGroup>
+		      <h:panelGroup id="logout" rendered="#{tokenSession.authorized}">
+		      <li><h:form><h:commandLink value="Logout" action="#{authentication.doLogout}" /></h:form></li>
+		      </h:panelGroup>
 		</ul>
 		</ui:composition>
 	</body>

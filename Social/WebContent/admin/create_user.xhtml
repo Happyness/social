@@ -1,0 +1,39 @@
+<ui:composition template="/layout/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+   <ui:define name="title">Create new user account</ui:define>
+
+    <ui:define name="content">
+    	<h:outputText value="#{createUser.response}" />
+    	<h:form>
+	    <h:panelGrid columns="2">
+	        <h:outputLabel for="username">Username:</h:outputLabel>
+	        <h:inputText id="username" required="true" value="#{createUser.username}"/>
+	        <h:outputLabel for="password">Password:</h:outputLabel>
+	        <h:inputText id="password" required="true"  value="#{createUser.password}" />
+	        <h:outputLabel for="name">Name:</h:outputLabel>
+	        <h:inputText id="name" required="true"  value="#{createUser.name}" />
+	        <h:outputLabel for="surname">Surname:</h:outputLabel>
+	        <h:inputText id="surname" required="true" value="#{createUser.surname}" />
+	        <h:outputLabel for="email">Email:</h:outputLabel>
+	        <h:inputText id="email" required="true" value="#{createUser.email}" />
+	        <h:outputLabel>Date of birth:</h:outputLabel>
+			<h:selectOneMenu value="#{createUser.dobYearSelect}">
+			   	<f:selectItems value="#{createUser.dobYear}" var="c"
+			   	itemLabel="#{c.label}" itemValue="#{c.value}" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{createUser.dobMonthSelect}">
+			   	<f:selectItems value="#{createUser.dobMonth}" var="c"
+			   	itemLabel="#{c.label}" itemValue="#{c.value}" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{createUser.dobDaySelect}">
+			   	<f:selectItems value="#{createUser.dobDay}" var="c"
+			   	itemLabel="#{c.label}" itemValue="#{c.value}" />
+			</h:selectOneMenu>
+	    </h:panelGrid>
+    	   <h:commandButton value="Create user account" action="#{createUser.save}"></h:commandButton>
+    	</h:form>
+    </ui:define>
+</ui:composition>

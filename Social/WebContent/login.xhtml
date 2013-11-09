@@ -6,16 +6,18 @@
    <ui:define name="title">Welcome</ui:define>
 
     <ui:define name="content">
-    	<h:outputText value="#{login.response}" />
+    	<h:outputText value="#{authentication.response}" />
     	<h:form>
-	    <h:panelGrid columns="2" rendered="#{!tokenSession.authorized}">
-	        <h:outputLabel for="username">Username:</h:outputLabel>
-	        <h:inputText id="username" required="true" value="#{login.username}"/>
-	        <h:outputLabel for="password">Password:</h:outputLabel>
-	        <h:inputText id="password" required="true"  value="#{login.password}" />
-	    </h:panelGrid>
-    	   <h:commandButton value="Logga in" action="#{login.doLogin}"></h:commandButton>
+    	<h:panelGrid columns="2" rendered="#{!tokenSession.authorized}">
+	    	
+		    
+		        <h:outputLabel for="username">Username:</h:outputLabel>
+		        <h:inputText id="username" required="true" value="#{authentication.username}"/>
+		        <h:outputLabel for="password">Password:</h:outputLabel>
+		        <h:inputSecret id="password" required="true"  value="#{authentication.password}" />
+	
+	    	   <h:commandButton value="Login" action="#{authentication.doLogin}"></h:commandButton>
+    	</h:panelGrid>
     	</h:form>
-    	<h:link></h:link>
     </ui:define>
 </ui:composition>

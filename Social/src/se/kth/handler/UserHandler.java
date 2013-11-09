@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import se.kth.model.bo.User;
+import se.kth.model.bo.UserProfile;
 import se.kth.model.dao.UserDao;
 import se.kth.resource.HibernateUtil;
 import se.kth.resource.SecurityUtils;
@@ -20,9 +21,6 @@ public class UserHandler implements Serializable
 	private UserDao userDao;
 	private User user;
 	private static final long serialVersionUID = 1L;
-	
-	private String username;
-	private String password;
 	private String response;
 	
 	public UserHandler()
@@ -41,24 +39,32 @@ public class UserHandler implements Serializable
 		this.user = user;
 	}
 	
-	public void createUser()
+	public String createUser(String username, String password, UserProfile profile)
 	{
 		User tmp = new User();
 		tmp.setUsername(username);
-		tmp.setPassword(SecurityUtils.getHash(password));
-		tmp.setTimestamp(new Date());
 		
-		Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-		User user = userDao.getUser(tmp);
+		Transaction trans = null;
 		
-		if (user == null) {
-			userDao.addUser(tmp);
-			response = "User is created!";
-		} else {
-			response = "User already exist!";
+		try {
+			trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+			User user = userDao.getUser(tmp);
+			
+			if (user == null) {
+				tmp.setPassword(SecurityUtils.getHash(password));
+				tmp.setTimestamp(new Date());
+				tmp.setUserProfile(profile);
+				userDao.addUser(tmp);
+				trans.commit();
+				return "User successfully was created in database.";
+			} else {
+				trans.commit();
+				return "User does already exist in database.";
+			}
+		} catch (RuntimeException e) {
+			 HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().rollback();
+			 return "User creation failed: " + e.getMessage();
 		}
-		
-		trans.commit();
 	}
 	
 	public boolean login(String username, String password)
@@ -66,9 +72,14 @@ public class UserHandler implements Serializable
 		User tmp = new User();
 		tmp.setUsername(username);
 		tmp.setPassword(SecurityUtils.getHash(password));
-		Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-		User user = userDao.getUser(tmp);
-		trans.commit();
+		
+		Transaction trans = null;
+				
+		try {
+			trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+			
+			User user = userDao.getUser(tmp);
+			trans.commit();
 		
 			if (user != null) {
 				setUser(user);
@@ -76,22 +87,9 @@ public class UserHandler implements Serializable
 			} else {
 				return false;
 			}
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+		} catch (RuntimeException e) {
+			 return false;
+		}
 	}
 
 	public String getResponse() {
