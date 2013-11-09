@@ -6,8 +6,11 @@
 	<class name="se.kth.model.bo.UserProfile" table="USER_PROFILE">
 		<id name="id" type="int">
 			<column name="ID" />
-			<generator class="identity" />
+			<generator class="foreign">
+				<param name="property">user</param>
+			</generator>
 		</id>
+		<one-to-one name="user" class="se.kth.model.bo.User" constrained="true" />
 		<property name="firstName" type="java.lang.String">
 			<column name="FIRST_NAME" />
 		</property>
@@ -20,7 +23,5 @@
 		<property name="dob" type="java.util.Date">
 			<column name="DATE_OF_BIRTH" />
 		</property>
-		<one-to-one name="user" class="se.kth.model.bo.User">
-		</one-to-one>
 	</class>
 </hibernate-mapping>

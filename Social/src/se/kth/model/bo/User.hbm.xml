@@ -17,9 +17,7 @@
 		<property name="timestamp" type="java.util.Date">
 			<column name="TIMESTAMP" />
 		</property>
-		<one-to-one name="userProfile" class="se.kth.model.bo.UserProfile"
-			cascade="save-update">
+		<one-to-one name="userProfile" class="se.kth.model.bo.UserProfile" cascade="save-update">
 		</one-to-one>
-
 	</class>
 </hibernate-mapping>

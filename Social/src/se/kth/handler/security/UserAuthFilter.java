@@ -24,7 +24,7 @@ public class UserAuthFilter implements Filter
 		  TokenSession token = (session != null) ? (TokenSession) session.getAttribute("tokenSession") : null;
 	    if (token != null && token.getAuthorized() == false) {
 	    	if (!request.getRequestURI().contains("login")) {
-	    		((HttpServletResponse) resp).sendRedirect("/login");
+	    		((HttpServletResponse) resp).sendRedirect("/Social/login.xhtml");
 	    	}
 	    } else {
 	      chain.doFilter(req, resp);

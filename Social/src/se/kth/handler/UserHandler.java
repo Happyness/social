@@ -54,6 +54,7 @@ public class UserHandler implements Serializable
 				tmp.setPassword(SecurityUtils.getHash(password));
 				tmp.setTimestamp(new Date());
 				tmp.setUserProfile(profile);
+				profile.setUser(tmp);
 				userDao.addUser(tmp);
 				trans.commit();
 				return "User successfully was created in database.";
@@ -71,7 +72,7 @@ public class UserHandler implements Serializable
 	{
 		User tmp = new User();
 		tmp.setUsername(username);
-		tmp.setPassword(SecurityUtils.getHash(password));
+		//tmp.setPassword(SecurityUtils.getHash(password));
 		
 		Transaction trans = null;
 				

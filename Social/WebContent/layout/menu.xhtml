@@ -14,7 +14,10 @@
 		      <h:panelGroup id="admin" rendered="#{tokenSession.isAdmin and tokenSession.authorized}">
 		      <li><h:link outcome="/admin/create_user">Create User</h:link></li>
 		      </h:panelGroup>
-		      <h:panelGroup id="logout" rendered="#{tokenSession.authorized}">
+		      <h:panelGroup id="user" rendered="#{tokenSession.authorized}">
+		      <li><h:link outcome="/user/profile">My Profile</h:link></li>
+		      <li><h:link outcome="/user/wall">My Wall</h:link></li>
+		      <li><h:link outcome="/user/messages">Private Messages</h:link></li>
 		      <li><h:form><h:commandLink value="Logout" action="#{authentication.doLogout}" /></h:form></li>
 		      </h:panelGroup>
 		</ul>
