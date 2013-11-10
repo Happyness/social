@@ -7,7 +7,7 @@
 	<title><ui:insert name="title">Default</ui:insert></title>
 	<ui:include src="header.xhtml" />
 	<h:body>
-		<ui:insert name="content" />
+		<ui:insert name="content" rendered="#{tokenSession.authorized}" />
 	</h:body>
 	<ui:include src="footer.xhtml" />
 </html>

@@ -7,7 +7,16 @@
    <ui:define name="title">My wall</ui:define>
 
     <ui:define name="content">
+    	 <ul>
+    		<h:outputText value="#{profile.load()}"/>
+    		<li>First name: <h:outputText value="#{profile.firstName}"></h:outputText></li>
+    		<li>Last name: <h:outputText value="#{profile.surName}"></h:outputText></li>
+    		<li>Email: <h:outputText value="#{profile.email}"></h:outputText></li>
+    		<li>Date of Birth: <h:outputText value="#{profile.dob}"></h:outputText></li>
+    	</ul>
     	<h:outputText value="#{wall.response}" />
+    	<h:outputText value="#{wall.load()}"/>
+    	<h:panelGroup rendered="#{wall.myOwn}">
     	<h:form>
     		<h:panelGrid columns="2">
 			<h:outputLabel for="message">New status message:</h:outputLabel>
@@ -15,6 +24,7 @@
 			</h:panelGrid>
 			 <h:commandButton value="Send message" action="#{wall.save}"></h:commandButton>
 		</h:form>
+		</h:panelGroup>
 		<ul>
 			<c:forEach items="#{wall.messagesByUser}" var="item">
 			<li><h:outputText value="#{item.timestamp}"/> : <strong><h:outputText value="#{item.message}"/></strong></li>

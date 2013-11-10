@@ -2,6 +2,9 @@ package se.kth.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
 
 import se.kth.model.bo.User;
 import se.kth.model.bo.UserProfile;
@@ -11,16 +14,28 @@ import se.kth.resource.SecurityUtils;
 
 import org.hibernate.Transaction;
 
+@ManagedBean
 public class UserHandler implements Serializable
 {
 	private UserDao userDao;
 	private User user;
 	private static final long serialVersionUID = 1L;
 	private String response;
+	private List<User> users;
 	
 	public UserHandler()
 	{
 		userDao = new UserDao();
+	}
+	
+	public List<User> getUsers()
+	{
+		if (users == null) {
+			Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+			users = new UserDao().getUsers();
+			trans.commit();
+		}
+		return users;
 	}
 	
 	public User getUser()
@@ -94,5 +109,10 @@ public class UserHandler implements Serializable
 
 	public void setResponse(String response) {
 		this.response = response;
+	}
+
+	public void setUsers(List<User> users)
+	{
+		this.users = users;
 	}
 }

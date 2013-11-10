@@ -2,12 +2,22 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jstl/core">
    <ui:define name="title">Welcome</ui:define>
 
     <ui:define name="content">
     	<h:panelGroup rendered="#{tokenSession.authorized}">
-    		Welcome #{tokenSession.profile.firstName}
+    		<h:outputText value="#{profile.load()}"/>
+    		Welcome #{profile.firstName}
+    		
+    		<ul>
+    			<c:forEach items="#{userHandler.users}" var="item">
+				   	<li><h:link value="#{item.username}" outcome="/user/wall">
+				        <f:param name="id" value="#{item.id}" />
+				    </h:link></li>
+			    </c:forEach>
+		    </ul>
     	</h:panelGroup>
     </ui:define>
 </ui:composition>

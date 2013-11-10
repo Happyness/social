@@ -70,7 +70,7 @@ public class Authentication implements Serializable
 			tokenSession.setIsAdmin(true);
 			
 			clearForm();
-			return "/index";
+			return "/index?faces-redirect=true";
 		}
 		
 		if (uh.login(username, password)) {
@@ -79,7 +79,7 @@ public class Authentication implements Serializable
 			tokenSession.setProfile(uh.getUser().getUserProfile());
 			
 			clearForm();
-			return "/index";
+			return "/index?faces-redirect=true";
 		} else {
 			response = "Invalid credentials provided! " + username + " : " + SecurityUtils.getHash(password);
 			return "";

@@ -3,10 +3,12 @@ package se.kth.handler;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.hibernate.Transaction;
 
@@ -29,10 +31,17 @@ public class Wall implements Serializable
 	private String message;
 	private String response;
 	private List<UserLogMessage> messagesByUser;
+	private int id;
 	
     @ManagedProperty(value = "#{tokenSession}")
     private TokenSession tokenSession;
     private UserProfile profile;
+    
+    public void load()
+    {
+		Map<String, String> map = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		id = Integer.parseInt(map.get("id"));
+    }
     
     public void setTokenSession(TokenSession tokenSession)
     {
@@ -44,9 +53,20 @@ public class Wall implements Serializable
     	return tokenSession;
     }
     
+    public boolean getMyOwn()
+    {
+    	UserProfile profile = tokenSession.getProfile();
+    	if (profile != null) {
+    		return (profile.getId() == id);
+    	}
+    	return false;
+    }
+    
     public List<UserLogMessage> getMessagesByUser()
-    {	
-    	if (tokenSession.getProfile() != null) {
+    {
+    	if (id > 0) {
+    		messagesByUser = new UserLogHandler().getMessagesByUser(id);
+    	} else if (tokenSession.getProfile() != null) {
     		messagesByUser = new UserLogHandler().getMessagesByUser(tokenSession.getProfile().getId());
     	} else {
     		messagesByUser = new ArrayList<UserLogMessage>();
