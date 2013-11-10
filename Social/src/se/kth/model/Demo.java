@@ -1,6 +1,6 @@
 package se.kth.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.hibernate.Transaction;
 
@@ -26,7 +26,7 @@ public class Demo {
 		pm.setMessage("Test message 2");
 		pm.setFromUser(user);
 		pm.setToUser(user2);
-		pm.setTimestamp(new Date());
+		pm.setTimestamp(new Date(System.currentTimeMillis()));
 		
 		
 

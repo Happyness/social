@@ -1,4 +1,4 @@
-package se.kth.handler;
+package se.kth.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,13 +9,8 @@ import se.kth.model.dao.UserDao;
 import se.kth.resource.HibernateUtil;
 import se.kth.resource.SecurityUtils;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 import org.hibernate.Transaction;
 
-@ManagedBean
-@SessionScoped
 public class UserHandler implements Serializable
 {
 	private UserDao userDao;
@@ -25,7 +20,6 @@ public class UserHandler implements Serializable
 	
 	public UserHandler()
 	{
-		super();
 		userDao = new UserDao();
 	}
 	
@@ -82,7 +76,8 @@ public class UserHandler implements Serializable
 			User user = userDao.getUser(tmp);
 			trans.commit();
 		
-			if (user != null) {
+			// Funkar inte med Hibernate att skicka med password, den lyckas inte matcha SHA256 av någon anledning
+			if (user != null && user.getPassword().equals(SecurityUtils.getHash(password))) {
 				setUser(user);
 				return true;
 			} else {

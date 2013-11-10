@@ -18,16 +18,16 @@ public class PrivateMessage implements Serializable {
 	private String message;
 	private Date timestamp;
 	
-	public PrivateMessage() {
-		
-	}
-	
 	public PrivateMessage(int id, User fromUser, User toUser, String message, Date timestamp) {
 		this.id = id;
 		this.fromUser = fromUser;
 		this.toUser = toUser;
 		this.message = message;
 		this.timestamp = timestamp;
+	}
+
+	public PrivateMessage() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {

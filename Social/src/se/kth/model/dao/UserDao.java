@@ -7,7 +7,6 @@ import org.hibernate.criterion.Example;
 
 import se.kth.model.bo.User;
 import se.kth.resource.HibernateUtil;
-import static org.hibernate.criterion.Example.create;
 
 public class UserDao {
 	
@@ -73,8 +72,8 @@ public class UserDao {
 		try {
 			@SuppressWarnings("unchecked")
 			List<User> list = (List<User>) sessionFactory
-					.getCurrentSession().createCriteria("se.kth.model.bo.User")
-					.add(create(new User())).list();
+					.getCurrentSession().createCriteria(User.class)
+					.add(Example.create(new User())).list();
 			return list;
 		} catch (RuntimeException re) {
 			throw re;

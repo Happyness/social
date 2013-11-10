@@ -2,15 +2,29 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
-   <ui:define name="title">My profile</ui:define>
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jstl/core">
+   <ui:define name="title">Messages</ui:define>
 
     <ui:define name="content">
-    	<ul>
-    		<li>First name: <h:outputText value="#{tokenSession.profile.firstName}"></h:outputText></li>
-    		<li>Last name: <h:outputText value="#{tokenSession.profile.surname}"></h:outputText></li>
-    		<li>Email: <h:outputText value="#{tokenSession.profile.email}"></h:outputText></li>
-    		<li>Date of Birth: <h:outputText value="#{tokenSession.profile.dob}"></h:outputText></li>
-    	</ul>
+    	<h:outputText value="#{privateMessages.response}" />
+    	<h:form>
+    		<h:panelGrid columns="2">
+    		<h:outputLabel for="touser">To User:</h:outputLabel>
+	    	<h:selectOneMenu id="touser" value="#{privateMessages.toUserSelect}" required="true">
+	    		<f:selectItem itemValue="#{null}" itemLabel="Select user" />
+				<f:selectItems value="#{privateMessages.toUser}" var="c"
+				 itemLabel="#{c.username}" itemValue="#{c.id}" />
+			</h:selectOneMenu>
+			<h:outputLabel for="message">Message:</h:outputLabel>
+	    	<h:inputTextarea id="message" cols="30" rows="5" value="#{privateMessages.message}" />
+			</h:panelGrid>
+			 <h:commandButton value="Send message" action="#{privateMessages.save}"></h:commandButton>
+		</h:form>
+		<ul>
+			<c:forEach items="#{privateMessages.messagesToUser}" var="item">
+			<li><h:outputText value="#{item.timestamp}"/> : <strong><h:outputText value="#{item.message}"/></strong></li>
+			</c:forEach>
+		</ul>
     </ui:define>
 </ui:composition>

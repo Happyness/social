@@ -1,4 +1,4 @@
-package se.kth.handler;
+package se.kth.model;
 
 public class UserProfileHandler {
 
