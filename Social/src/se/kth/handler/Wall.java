@@ -40,7 +40,16 @@ public class Wall implements Serializable
     public void load()
     {
 		Map<String, String> map = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		id = Integer.parseInt(map.get("id"));
+		String id = map.get("id");
+		
+		if (id != null) {
+			this.id = Integer.parseInt(id);
+		} else {
+	    	UserProfile profile = tokenSession.getProfile();
+	    	if (profile != null) {
+	    		this.id = profile.getId();
+	    	}
+		}
     }
     
     public void setTokenSession(TokenSession tokenSession)
