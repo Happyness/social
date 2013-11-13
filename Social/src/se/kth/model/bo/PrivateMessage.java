@@ -13,15 +13,13 @@ public class PrivateMessage implements Serializable {
 	@Id
 	@GeneratedValue
 	private int id;
-	private User fromUser;
-	private User toUser;
+	private FromUserToUserPrivateMessageJoin fromUserToUserPrivateMessageJoin;
 	private String message;
 	private Date timestamp;
 	
-	public PrivateMessage(int id, User fromUser, User toUser, String message, Date timestamp) {
+	public PrivateMessage(int id, String message, Date timestamp, FromUserToUserPrivateMessageJoin fromUserToUserPrivateMessageJoin) {
 		this.id = id;
-		this.fromUser = fromUser;
-		this.toUser = toUser;
+		this.fromUserToUserPrivateMessageJoin = fromUserToUserPrivateMessageJoin;
 		this.message = message;
 		this.timestamp = timestamp;
 	}
@@ -38,22 +36,6 @@ public class PrivateMessage implements Serializable {
 		this.id = id;
 	}
 
-	public User getFromUser() {
-		return fromUser;
-	}
-
-	public void setFromUser(User fromUser) {
-		this.fromUser = fromUser;
-	}
-
-	public User getToUser() {
-		return toUser;
-	}
-
-	public void setToUser(User toUser) {
-		this.toUser = toUser;
-	}
-
 	public String getMessage() {
 		return message;
 	}
@@ -68,6 +50,15 @@ public class PrivateMessage implements Serializable {
 
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public FromUserToUserPrivateMessageJoin getFromUserToUserPrivateMessageJoin() {
+		return fromUserToUserPrivateMessageJoin;
+	}
+
+	public void setFromUserToUserPrivateMessageJoin(
+			FromUserToUserPrivateMessageJoin fromUserToUserPrivateMessageJoin) {
+		this.fromUserToUserPrivateMessageJoin = fromUserToUserPrivateMessageJoin;
 	}
 	
 	

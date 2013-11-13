@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-nov-05 12:30:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="se.kth.model.bo.FromUserToUserPrivateMessageJoin" table="FROM_USER_TO_USER_PRIVATE_MESSAGE_JOIN">
+	    <composite-id>
+		    <key-many-to-one name="toUser" column="FK_TO_USER" entity-name="se.kth.model.bo.User" />
+		    <key-many-to-one name="fromUser" column="FK_FROM_USER" entity-name="se.kth.model.bo.User" />
+		    <key-property name="privateMessage" column="FK_PRIVATE_MESSAGE"/>
+   		</composite-id>
+	    <many-to-one name="toUser" class="se.kth.model.bo.User" fetch="select" insert="false" update="false">
+	        <column name="USER_ID" not-null="true" />
+	    </many-to-one>
+	    <many-to-one name="fromUser" class="se.kth.model.bo.User" fetch="select" insert="false" update="false">
+	        <column name="USER_ID" not-null="true" />
+	    </many-to-one>
+		<one-to-one name="privateMessage" class="se.kth.model.bo.PrivateMessage">
+		</one-to-one>
+	</class>
+</hibernate-mapping>

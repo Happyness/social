@@ -5,7 +5,7 @@
 <hibernate-mapping>
 	<class name="se.kth.model.bo.UserProfile" table="USER_PROFILE">
 		<id name="id" type="int">
-			<column name="ID" />
+			<column name="USER_PROFILE_ID" />
 			<generator class="foreign">
 				<param name="property">user</param>
 			</generator>

@@ -13,8 +13,7 @@ public class UserLogMessage implements Serializable {
 	@Id
 	@GeneratedValue
 	private int id;
-	private User fromUser;
-	private User toUser;
+	private User user;
 	private String message;
 	private Date timestamp;
 	
@@ -22,10 +21,9 @@ public class UserLogMessage implements Serializable {
 		
 	}
 	
-	public UserLogMessage(int id, User fromUser, User toUser, String message, Date timestamp) {
+	public UserLogMessage(int id, User user, String message, Date timestamp) {
 		this.id = id;
-		this.fromUser = fromUser;
-		this.toUser = toUser;
+		this.user = user;
 		this.message = message;
 		this.timestamp = timestamp;
 	}
@@ -38,20 +36,12 @@ public class UserLogMessage implements Serializable {
 		this.id = id;
 	}
 
-	public User getFromUser() {
-		return fromUser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setFromUser(User fromUser) {
-		this.fromUser = fromUser;
-	}
-
-	public User getToUser() {
-		return toUser;
-	}
-
-	public void setToUser(User toUser) {
-		this.toUser = toUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getMessage() {

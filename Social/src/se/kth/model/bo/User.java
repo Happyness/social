@@ -2,6 +2,7 @@ package se.kth.model.bo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,17 +18,22 @@ public class User implements Serializable {
 	private String password;
 	private Date timestamp;
 	private UserProfile userProfile;
+	private Set<FromUserToUserPrivateMessageJoin> sentPrivateMessagesList;
+	private Set<FromUserToUserPrivateMessageJoin> receivedPrivateMessagesList;
 
 	public User() {
 	}
 
 	public User(int id, String username, String password, Date timestamp,
-			UserProfile userProfile) {
+			UserProfile userProfile, Set<FromUserToUserPrivateMessageJoin> receivedPrivateMessagesList,
+			Set<FromUserToUserPrivateMessageJoin> sentPrivateMessagesList) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.timestamp = timestamp;
-		this.setUserProfile(userProfile);
+		this.userProfile = userProfile;
+		this.receivedPrivateMessagesList = receivedPrivateMessagesList;
+		this.sentPrivateMessagesList = sentPrivateMessagesList;
 	}
 
 	public int getId() {
@@ -68,6 +74,24 @@ public class User implements Serializable {
 
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
+	}
+
+	public Set<FromUserToUserPrivateMessageJoin> getSentPrivateMessagesList() {
+		return sentPrivateMessagesList;
+	}
+
+	public void setSentPrivateMessagesList(
+			Set<FromUserToUserPrivateMessageJoin> sentPrivateMessagesList) {
+		this.sentPrivateMessagesList = sentPrivateMessagesList;
+	}
+
+	public Set<FromUserToUserPrivateMessageJoin> getReceivedPrivateMessagesList() {
+		return receivedPrivateMessagesList;
+	}
+
+	public void setReceivedPrivateMessagesList(
+			Set<FromUserToUserPrivateMessageJoin> receivedPrivateMessagesList) {
+		this.receivedPrivateMessagesList = receivedPrivateMessagesList;
 	}
 
 }

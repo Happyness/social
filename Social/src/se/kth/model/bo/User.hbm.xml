@@ -5,7 +5,7 @@
 <hibernate-mapping>
 	<class name="se.kth.model.bo.User" table="USER">
 		<id name="id" type="int">
-			<column name="ID" />
+			<column name="USER_ID" />
 			<generator class="identity" />
 		</id>
 		<property name="username" type="java.lang.String">
@@ -19,5 +19,19 @@
 		</property>
 		<one-to-one name="userProfile" class="se.kth.model.bo.UserProfile" cascade="save-update">
 		</one-to-one>
+		<set name="sentPrivateMessagesList" table="FROM_USER_TO_USER_PRIVATE_MESSAGE_JOIN" 
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USER_ID" not-null="true" />
+            </key>
+            <one-to-many class="se.kth.model.bo.FromUserToUserPrivateMessageJoin" />
+        </set>
+		<set name="receivedPrivateMessagesList" table="FROM_USER_TO_USER_PRIVATE_MESSAGE_JOIN" 
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USER_ID" not-null="true" />
+            </key>
+            <one-to-many class="se.kth.model.bo.FromUserToUserPrivateMessageJoin" />
+        </set>
 	</class>
 </hibernate-mapping>

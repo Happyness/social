@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
+import se.kth.model.bo.FromUserToUserPrivateMessageJoin;
 import se.kth.model.bo.PrivateMessage;
 import se.kth.model.bo.User;
 import se.kth.resource.HibernateUtil;
@@ -39,16 +40,21 @@ public class PrivateMessageDao {
 		}
 	}
 	
+	@SuppressWarnings("null")
 	public List<PrivateMessage> getPrivateMessagesFrom(User user) {
 		try {
-			PrivateMessage pm = new PrivateMessage();
-			pm.setFromUser(user);
+			FromUserToUserPrivateMessageJoin futupmj = new FromUserToUserPrivateMessageJoin();
+			futupmj.setFromUser(user);
 			@SuppressWarnings("unchecked")
-			List<PrivateMessage> results = (List<PrivateMessage>) sessionFactory.getCurrentSession().createCriteria(PrivateMessage.class).add(Example.create(pm)).list();
-			if (results.size() == 0) {
+			List<FromUserToUserPrivateMessageJoin> temp = (List<FromUserToUserPrivateMessageJoin>) sessionFactory.getCurrentSession().createCriteria(FromUserToUserPrivateMessageJoin.class).add(Example.create(futupmj)).list();
+			if (temp.size() == 0) {
 				return null;
 			} 
 			else {
+				List<PrivateMessage> results = null;
+				for(FromUserToUserPrivateMessageJoin item : temp) {
+					results.add(item.getPrivateMessage());
+				}
 				return results;
 			}
 		} catch (RuntimeException re) {
@@ -56,16 +62,21 @@ public class PrivateMessageDao {
 		}
 	}
 	
+	@SuppressWarnings("null")
 	public List<PrivateMessage> getPrivateMessagesTo(User user) {
 		try {
-			PrivateMessage pm = new PrivateMessage();
-			pm.setToUser(user);
+			FromUserToUserPrivateMessageJoin futupmj = new FromUserToUserPrivateMessageJoin();
+			futupmj.setToUser(user);
 			@SuppressWarnings("unchecked")
-			List<PrivateMessage> results = (List<PrivateMessage>) sessionFactory.getCurrentSession().createCriteria(PrivateMessage.class).add(Example.create(pm)).list();
-			if (results.size() == 0) {
+			List<FromUserToUserPrivateMessageJoin> temp = (List<FromUserToUserPrivateMessageJoin>) sessionFactory.getCurrentSession().createCriteria(FromUserToUserPrivateMessageJoin.class).add(Example.create(futupmj)).list();
+			if (temp.size() == 0) {
 				return null;
 			} 
 			else {
+				List<PrivateMessage> results = null;
+				for(FromUserToUserPrivateMessageJoin item : temp) {
+					results.add(item.getPrivateMessage());
+				}
 				return results;
 			}
 		} catch (RuntimeException re) {

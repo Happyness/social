@@ -5,15 +5,13 @@
 <hibernate-mapping>
 	<class name="se.kth.model.bo.PrivateMessage" table="PRIVATE_MESSAGE">
 		<id name="id" type="int">
-			<column name="ID" />
+			<column name="PRIVATE_MESSAGE_ID" />
 			<generator class="identity" />
 		</id>
 		<property name="message" type="java.lang.String">
 			<column name="MESSAGE" />
 		</property>
-		<one-to-one name="fromUser" class="se.kth.model.bo.User">
-		</one-to-one>
-		<one-to-one name="toUser" class="se.kth.model.bo.User">
+		<one-to-one name="fromUserToUserPrivateMessageJoin" class="se.kth.model.bo.FromUserToUserPrivateMessageJoin" cascade="save-update">
 		</one-to-one>
 		<property name="timestamp" type="java.util.Date">
 			<column name="TIMESTAMP" />

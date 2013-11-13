@@ -42,7 +42,7 @@ public class UserLogMessageDao {
 	public List<UserLogMessage> getUserLogMessagesFrom(User user) {
 		try {
 			UserLogMessage ulm = new UserLogMessage();
-			ulm.setFromUser(user);
+			ulm.setUser(user);
 			@SuppressWarnings("unchecked")
 			List<UserLogMessage> results = (List<UserLogMessage>) sessionFactory.getCurrentSession().createCriteria(UserLogMessage.class).add(Example.create(ulm)).list();
 			if (results.size() == 0) {
@@ -59,7 +59,7 @@ public class UserLogMessageDao {
 	public List<UserLogMessage> getUserLogMessagesTo(User user) {
 		try {
 			UserLogMessage ulm = new UserLogMessage();
-			ulm.setToUser(user);
+			ulm.setUser(user);
 			@SuppressWarnings("unchecked")
 			List<UserLogMessage> results = (List<UserLogMessage>) sessionFactory.getCurrentSession().createCriteria(UserLogMessage.class).add(Example.create(ulm)).list();
 			if (results.size() == 0) {

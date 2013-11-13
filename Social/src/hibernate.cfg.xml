@@ -14,5 +14,6 @@
 		<mapping resource="se/kth/model/bo/UserProfile.hbm.xml"></mapping>
 		<mapping resource="se/kth/model/bo/UserLogMessage.hbm.xml"></mapping>
 		<mapping resource="se/kth/model/bo/PrivateMessage.hbm.xml"></mapping>
+		<mapping resource="se/kth/model/bo/FromUserToUserPrivateMessageJoin.hbm.xml"></mapping>
 	</session-factory>
 </hibernate-configuration>
