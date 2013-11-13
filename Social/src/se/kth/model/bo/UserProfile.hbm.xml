@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2013-nov-05 12:30:34 by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 13, 2013 2:23:29 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-	<class name="se.kth.model.bo.UserProfile" table="USER_PROFILE">
-		<id name="id" type="int">
-			<column name="USER_PROFILE_ID" />
-			<generator class="foreign">
-				<param name="property">user</param>
-			</generator>
-		</id>
-		<one-to-one name="user" class="se.kth.model.bo.User" constrained="true" />
-		<property name="firstName" type="java.lang.String">
-			<column name="FIRST_NAME" />
-		</property>
-		<property name="surname" type="java.lang.String">
-			<column name="SURNAME" />
-		</property>
-		<property name="email" type="java.lang.String">
-			<column name="EMAIL" />
-		</property>
-		<property name="dob" type="java.sql.Date">
-			<column name="DATE_OF_BIRTH" />
-		</property>
-	</class>
+    <class name="se.kth.model.bo.UserProfile" table="user_profile" catalog="social">
+        <id name="userProfileId" type="int">
+            <column name="USER_PROFILE_ID" />
+            <generator class="foreign">
+                <param name="property">user</param>
+            </generator>
+        </id>
+        <one-to-one name="user" class="se.kth.model.bo.User" constrained="true"></one-to-one>
+        <property name="firstName" type="string">
+            <column name="FIRST_NAME" />
+        </property>
+        <property name="surname" type="string">
+            <column name="SURNAME" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" />
+        </property>
+        <property name="dateOfBirth" type="date">
+            <column name="DATE_OF_BIRTH" length="10" />
+        </property>
+    </class>
 </hibernate-mapping>

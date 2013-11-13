@@ -1,37 +1,37 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2013-nov-05 12:30:34 by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 13, 2013 2:23:29 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-	<class name="se.kth.model.bo.User" table="USER">
-		<id name="id" type="int">
-			<column name="USER_ID" />
-			<generator class="identity" />
-		</id>
-		<property name="username" type="java.lang.String">
-			<column name="USERNAME" />
-		</property>
-		<property name="password" type="java.lang.String">
-			<column name="PASSWORD" />
-		</property>
-		<property name="timestamp" type="java.util.Date">
-			<column name="TIMESTAMP" />
-		</property>
-		<one-to-one name="userProfile" class="se.kth.model.bo.UserProfile" cascade="save-update">
-		</one-to-one>
-		<set name="sentPrivateMessagesList" table="FROM_USER_TO_USER_PRIVATE_MESSAGE_JOIN" 
-				inverse="true" lazy="true" fetch="select">
+    <class name="se.kth.model.bo.User" table="user" catalog="social">
+        <id name="userId" type="java.lang.Integer">
+            <column name="USER_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="username" type="string">
+            <column name="USERNAME" />
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" />
+        </property>
+        <one-to-one name="userProfile" class="se.kth.model.bo.UserProfile"></one-to-one>
+        <set name="userLogMessages" table="user_log_message" inverse="true" lazy="false" fetch="select">
             <key>
-                <column name="USER_ID" not-null="true" />
+                <column name="USER" not-null="true" />
             </key>
-            <one-to-many class="se.kth.model.bo.FromUserToUserPrivateMessageJoin" />
+            <one-to-many class="se.kth.model.bo.UserLogMessage" />
         </set>
-		<set name="receivedPrivateMessagesList" table="FROM_USER_TO_USER_PRIVATE_MESSAGE_JOIN" 
-				inverse="true" lazy="true" fetch="select">
+        <set name="privateMessagesForFromUser" table="private_message" inverse="true" lazy="false" fetch="select">
             <key>
-                <column name="USER_ID" not-null="true" />
+                <column name="FROM_USER" not-null="true" />
             </key>
-            <one-to-many class="se.kth.model.bo.FromUserToUserPrivateMessageJoin" />
+            <one-to-many class="se.kth.model.bo.PrivateMessage" />
         </set>
-	</class>
+        <set name="privateMessagesForToUser" table="private_message" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="TO_USER" not-null="true" />
+            </key>
+            <one-to-many class="se.kth.model.bo.PrivateMessage" />
+        </set>
+    </class>
 </hibernate-mapping>

@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2013-nov-05 12:30:34 by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 13, 2013 2:23:29 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-	<class name="se.kth.model.bo.PrivateMessage" table="PRIVATE_MESSAGE">
-		<id name="id" type="int">
-			<column name="PRIVATE_MESSAGE_ID" />
-			<generator class="identity" />
-		</id>
-		<property name="message" type="java.lang.String">
-			<column name="MESSAGE" />
-		</property>
-		<one-to-one name="fromUserToUserPrivateMessageJoin" class="se.kth.model.bo.FromUserToUserPrivateMessageJoin" cascade="save-update">
-		</one-to-one>
-		<property name="timestamp" type="java.util.Date">
-			<column name="TIMESTAMP" />
-		</property>
-
-	</class>
+    <class name="se.kth.model.bo.PrivateMessage" table="private_message" catalog="social">
+        <id name="privateMessageId" type="java.lang.Integer">
+            <column name="PRIVATE_MESSAGE_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="userByToUser" class="se.kth.model.bo.User" fetch="select" lazy="false">
+            <column name="TO_USER" not-null="true" />
+        </many-to-one>
+        <many-to-one name="userByFromUser" class="se.kth.model.bo.User" fetch="select" lazy="false">
+            <column name="FROM_USER" not-null="true" />
+        </many-to-one>
+        <property name="message" type="string">
+            <column name="MESSAGE" />
+        </property>
+    </class>
 </hibernate-mapping>

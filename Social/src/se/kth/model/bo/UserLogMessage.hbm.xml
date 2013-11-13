@@ -1,20 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2013-nov-05 12:30:34 by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 13, 2013 2:23:29 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-	<class name="se.kth.model.bo.UserLogMessage" table="USER_LOG_MESSAGE">
-		<id name="id" type="int">
-			<column name="USER_LOG_MESSAGE_ID" />
-			<generator class="identity" />
-		</id>
-		<property name="message" type="java.lang.String">
-			<column name="MESSAGE" />
-		</property>
-		<one-to-one name="user" class="se.kth.model.bo.User">
-		</one-to-one>
-		<property name="timestamp" type="java.util.Date">
-			<column name="TIMESTAMP" />
-		</property>
-	</class>
+    <class name="se.kth.model.bo.UserLogMessage" table="user_log_message" catalog="social">
+        <id name="userLogMessageId" type="java.lang.Integer">
+            <column name="USER_LOG_MESSAGE_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="user" class="se.kth.model.bo.User" fetch="select">
+            <column name="USER" not-null="true" />
+        </many-to-one>
+        <property name="message" type="string">
+            <column name="MESSAGE" />
+        </property>
+    </class>
 </hibernate-mapping>
