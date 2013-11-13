@@ -72,8 +72,8 @@ public class Profile implements Serializable
     	setFirstName(profile.getFirstName());
     	setEmail(profile.getEmail());
     	
-    	if (profile.getDob() != null)
-    		setDob(profile.getDob().toString());
+    	if (profile.getDateOfBirth() != null)
+    		setDob(profile.getDateOfBirth().toString());
     	
     	return "";
 	}

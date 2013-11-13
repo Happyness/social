@@ -61,7 +61,7 @@ public class UserHandler implements Serializable
 			
 			if (user == null) {
 				tmp.setPassword(SecurityUtils.getHash(password));
-				tmp.setTimestamp(new Date());
+				//tmp.setTimestamp(new Date());
 				tmp.setUserProfile(profile);
 				profile.setUser(tmp);
 				userDao.addUser(tmp);

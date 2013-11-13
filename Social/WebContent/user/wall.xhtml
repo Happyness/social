@@ -27,7 +27,7 @@
 		</h:panelGroup>
 		<ul>
 			<c:forEach items="#{wall.messagesByUser}" var="item">
-			<li><h:outputText value="#{item.timestamp}"/> : <strong><h:outputText value="#{item.message}"/></strong></li>
+			<li> : <strong><h:outputText value="#{item.message}"/></strong></li>
 			</c:forEach>
 		</ul>
     </ui:define>

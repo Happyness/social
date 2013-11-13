@@ -47,7 +47,7 @@ public class Wall implements Serializable
 		} else {
 	    	UserProfile profile = tokenSession.getProfile();
 	    	if (profile != null) {
-	    		this.id = profile.getId();
+	    		this.id = profile.getUserProfileId();
 	    	}
 		}
     }
@@ -66,7 +66,7 @@ public class Wall implements Serializable
     {
     	UserProfile profile = tokenSession.getProfile();
     	if (profile != null) {
-    		return (profile.getId() == id);
+    		return (profile.getUserProfileId() == id);
     	}
     	return false;
     }
@@ -76,7 +76,7 @@ public class Wall implements Serializable
     	if (id > 0) {
     		messagesByUser = new UserLogHandler().getMessagesByUser(id);
     	} else if (tokenSession.getProfile() != null) {
-    		messagesByUser = new UserLogHandler().getMessagesByUser(tokenSession.getProfile().getId());
+    		messagesByUser = new UserLogHandler().getMessagesByUser(tokenSession.getProfile().getUserProfileId());
     	} else {
     		messagesByUser = new ArrayList<UserLogMessage>();
     	}
@@ -87,7 +87,7 @@ public class Wall implements Serializable
 	public void save()
 	{
 		UserLogHandler ulh = new UserLogHandler();
-		setResponse(ulh.createMessage(tokenSession.getProfile().getId(), message));
+		setResponse(ulh.createMessage(tokenSession.getProfile().getUserProfileId(), message));
 	}
 
 	public String getMessage() {

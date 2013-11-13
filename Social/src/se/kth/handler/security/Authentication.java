@@ -77,6 +77,7 @@ public class Authentication implements Serializable
 			response = "Valid username and password";
 			tokenSession.setAuthorized(true);
 			tokenSession.setProfile(uh.getUser().getUserProfile());
+			tokenSession.setIsAdmin(false);
 			
 			clearForm();
 			return "/index?faces-redirect=true";

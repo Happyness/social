@@ -51,9 +51,9 @@ public class UserLogHandler implements Serializable
 			trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 			User user = new UserDao().getUser(id);
 			UserLogMessage ulm = new UserLogMessage();
-			ulm.setFromUser(user);
+			ulm.setUser(user);
 			ulm.setMessage(message);
-			ulm.setTimestamp(new Date());
+			//ulm.setTimestamp(new Date());
 			
 			logMsgDao.addUserLogMessage(ulm);
 			trans.commit();

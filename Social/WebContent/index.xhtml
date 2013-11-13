@@ -14,7 +14,7 @@
     		<ul>
     			<c:forEach items="#{userHandler.users}" var="item">
 				   	<li><h:link value="#{item.username}" outcome="/user/wall">
-				        <f:param name="id" value="#{item.id}" />
+				        <f:param name="id" value="#{item.userId}" />
 				    </h:link></li>
 			    </c:forEach>
 		    </ul>

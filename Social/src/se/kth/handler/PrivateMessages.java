@@ -49,7 +49,7 @@ public class PrivateMessages implements Serializable
     public List<PrivateMessage> getMessagesToUser()
     {	
     	if (tokenSession.getProfile() != null) {
-    		messagesToUser = new PrivateMessageHandler().getMessagesToUser(tokenSession.getProfile().getId());
+    		messagesToUser = new PrivateMessageHandler().getMessagesToUser(tokenSession.getProfile().getUserProfileId());
     	} else {
     		messagesToUser = new ArrayList<PrivateMessage>();
     	}
@@ -65,7 +65,7 @@ public class PrivateMessages implements Serializable
 		
 		int id = -1;
 		if (tokenSession.getProfile() != null) {
-			id = tokenSession.getProfile().getId();
+			id = tokenSession.getProfile().getUserProfileId();
 		}
 		
 		if (users.size() > 1) {
@@ -74,7 +74,7 @@ public class PrivateMessages implements Serializable
 			for (int i = 0; i < users.size(); i++) {
 				User u = users.get(i);
 				
-				if (u.getId() != id) {
+				if (u.getUserId() != id) {
 					toUser.add(u);
 				}
 			}
@@ -86,7 +86,13 @@ public class PrivateMessages implements Serializable
 	public void save()
 	{
 		PrivateMessageHandler pmh = new PrivateMessageHandler();
-		setResponse(pmh.createMessage(Integer.parseInt(toUserSelect), tokenSession.getProfile().getId(), message));
+		UserProfile profile = tokenSession.getProfile();
+		
+		if (profile != null) {
+			setResponse(pmh.createMessage(Integer.parseInt(toUserSelect), profile.getUserProfileId(), message));
+		} else {
+			setResponse("No profile available");
+		}
 	}
 
 	public String getTo_id() {

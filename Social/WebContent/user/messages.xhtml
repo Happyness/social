@@ -14,7 +14,7 @@
 	    	<h:selectOneMenu id="touser" value="#{privateMessages.toUserSelect}" required="true">
 	    		<f:selectItem itemValue="#{null}" itemLabel="Select user" />
 				<f:selectItems value="#{privateMessages.toUser}" var="c"
-				 itemLabel="#{c.username}" itemValue="#{c.id}" />
+				 itemLabel="#{c.username}" itemValue="#{c.userId}" />
 			</h:selectOneMenu>
 			<h:outputLabel for="message">Message:</h:outputLabel>
 	    	<h:inputTextarea id="message" cols="30" rows="5" value="#{privateMessages.message}" />
@@ -23,7 +23,7 @@
 		</h:form>
 		<ul>
 			<c:forEach items="#{privateMessages.messagesToUser}" var="item">
-			<li><h:outputText value="#{item.timestamp}"/> : <strong><h:outputText value="#{item.message}"/></strong></li>
+			<li> : <strong><h:outputText value="#{item.message}"/></strong></li>
 			</c:forEach>
 		</ul>
     </ui:define>

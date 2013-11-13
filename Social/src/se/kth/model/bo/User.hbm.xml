@@ -14,7 +14,7 @@
         <property name="password" type="string">
             <column name="PASSWORD" />
         </property>
-        <one-to-one name="userProfile" class="se.kth.model.bo.UserProfile"></one-to-one>
+        <one-to-one name="userProfile" class="se.kth.model.bo.UserProfile" cascade="save-update"></one-to-one>
         <set name="userLogMessages" table="user_log_message" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="USER" not-null="true" />

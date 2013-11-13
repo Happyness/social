@@ -1,11 +1,7 @@
 package se.kth.handler;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 
@@ -148,7 +144,7 @@ public class CreateUser implements Serializable
 		up.setEmail(email);
 		
 		String dobio = dobYearSelect + "-" + dobMonthSelect + "-" + dobDaySelect;
-		up.setDob(java.sql.Date.valueOf(dobio));
+		up.setDateOfBirth(java.sql.Date.valueOf(dobio));
 		
 		response = uh.createUser(username, password, up);
 	}
