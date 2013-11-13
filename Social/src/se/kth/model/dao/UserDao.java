@@ -1,5 +1,6 @@
 package se.kth.model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -54,6 +55,7 @@ public class UserDao {
 	
 	public void addUser(User user) {
 		try {
+			user.setUserAdded(new Date());
 			sessionFactory.getCurrentSession().saveOrUpdate(user);
 		} catch (RuntimeException re) {
 			throw re;

@@ -1,5 +1,6 @@
 package se.kth.model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -56,25 +57,9 @@ public class UserLogMessageDao {
 		}
 	}
 	
-	public List<UserLogMessage> getUserLogMessagesTo(User user) {
-		try {
-			UserLogMessage ulm = new UserLogMessage();
-			ulm.setUser(user);
-			@SuppressWarnings("unchecked")
-			List<UserLogMessage> results = (List<UserLogMessage>) sessionFactory.getCurrentSession().createCriteria(UserLogMessage.class).add(Example.create(ulm)).list();
-			if (results.size() == 0) {
-				return null;
-			} 
-			else {
-				return results;
-			}
-		} catch (RuntimeException re) {
-			throw re;
-		}
-	}
-	
 	public void addUserLogMessage(UserLogMessage ulm) {
 		try {
+			ulm.setMessageSent(new Date());
 			sessionFactory.getCurrentSession().saveOrUpdate(ulm);
 		} catch (RuntimeException re) {
 			throw re;

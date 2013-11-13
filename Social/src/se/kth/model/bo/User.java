@@ -1,7 +1,8 @@
 package se.kth.model.bo;
 
-// Generated Nov 13, 2013 2:23:29 PM by Hibernate Tools 4.0.0
+// Generated Nov 13, 2013 3:03:35 PM by Hibernate Tools 4.0.0
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ public class User implements java.io.Serializable {
 	private Integer userId;
 	private String username;
 	private String password;
+	private Date userAdded;
 	private UserProfile userProfile;
 	private Set<UserLogMessage> userLogMessages = new HashSet<UserLogMessage>(0);
 	private Set<PrivateMessage> privateMessagesForFromUser = new HashSet<PrivateMessage>(
@@ -23,18 +25,18 @@ public class User implements java.io.Serializable {
 
 	public User() {
 	}
-	
-	public User(String username, String password) {
-		this.username = username;
-		this.password = password;
+
+	public User(Date userAdded) {
+		this.userAdded = userAdded;
 	}
 
-	public User(String username, String password, UserProfile userProfile,
-			Set<UserLogMessage> userLogMessages,
+	public User(String username, String password, Date userAdded,
+			UserProfile userProfile, Set<UserLogMessage> userLogMessages,
 			Set<PrivateMessage> privateMessagesForFromUser,
 			Set<PrivateMessage> privateMessagesForToUser) {
 		this.username = username;
 		this.password = password;
+		this.userAdded = userAdded;
 		this.userProfile = userProfile;
 		this.userLogMessages = userLogMessages;
 		this.privateMessagesForFromUser = privateMessagesForFromUser;
@@ -63,6 +65,14 @@ public class User implements java.io.Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Date getUserAdded() {
+		return this.userAdded;
+	}
+
+	public void setUserAdded(Date userAdded) {
+		this.userAdded = userAdded;
 	}
 
 	public UserProfile getUserProfile() {

@@ -1,6 +1,6 @@
 package se.kth.model.bo;
 
-// Generated Nov 13, 2013 2:23:29 PM by Hibernate Tools 4.0.0
+// Generated Nov 13, 2013 3:03:35 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 

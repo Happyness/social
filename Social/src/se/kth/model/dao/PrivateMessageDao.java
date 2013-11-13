@@ -1,5 +1,6 @@
 package se.kth.model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -76,6 +77,7 @@ public class PrivateMessageDao {
 	
 	public void addPrivateMessage(PrivateMessage pm) {
 		try {
+			pm.setMessageSent(new Date());
 			sessionFactory.getCurrentSession().saveOrUpdate(pm);
 		} catch (RuntimeException re) {
 			throw re;
