@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 13, 2013 2:23:29 PM by Hibernate Tools 4.0.0 -->
+<!-- Generated Nov 13, 2013 3:03:35 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="se.kth.model.bo.UserLogMessage" table="user_log_message" catalog="social">
         <id name="userLogMessageId" type="java.lang.Integer">
@@ -13,6 +13,9 @@
         </many-to-one>
         <property name="message" type="string">
             <column name="MESSAGE" />
+        </property>
+        <property name="messageSent" type="timestamp">
+            <column name="MESSAGE_SENT" length="19" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

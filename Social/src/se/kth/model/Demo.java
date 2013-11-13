@@ -19,7 +19,7 @@ public class Demo {
 
 		UserDao userDao = new UserDao();
 		PrivateMessageDao pmDao = new PrivateMessageDao();
-		
+
 //		User user = new User();
 //		user.setUsername("mats");
 //		user.setPassword("pw");
@@ -34,11 +34,11 @@ public class Demo {
 //		tx3.commit();
 		
 		Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-			User user = userDao.getUser(3);
-			User user2 = userDao.getUser(4);
+			User user = userDao.getUser(5);
+			User user2 = userDao.getUser(6);
 		tx.commit();
 		PrivateMessage pm = new PrivateMessage();
-		pm.setMessage("!!!!!TESTING JOIN FULL MESSAGE!!!!");
+		pm.setMessage("Test2 PM!");
 		pm.setUserByFromUser(user);
 		pm.setUserByToUser(user2);
 		
@@ -49,9 +49,10 @@ public class Demo {
 		tx2.commit();
 		
 		for (PrivateMessage item : pmList) {
+			System.out.println("Message sent: " + item.getMessageSent().toString());
 			System.out.println("Message to: " + item.getUserByToUser().getUsername());
 			System.out.println("Message from: " + item.getUserByFromUser().getUsername());
-			System.out.println("Message to: " + item.getMessage());
+			System.out.println("Message: " + item.getMessage());
 		}
 
 	}
