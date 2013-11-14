@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Example;
 
 import se.kth.model.bo.User;
 import se.kth.model.bo.UserLogMessage;
@@ -40,16 +39,20 @@ public class UserLogMessageDao {
 		}
 	}
 	
+	@SuppressWarnings("null")
 	public List<UserLogMessage> getUserLogMessagesFrom(User user) {
 		try {
-			UserLogMessage ulm = new UserLogMessage();
-			ulm.setUser(user);
-			@SuppressWarnings("unchecked")
-			List<UserLogMessage> results = (List<UserLogMessage>) sessionFactory.getCurrentSession().createCriteria(UserLogMessage.class).add(Example.create(ulm)).list();
-			if (results.size() == 0) {
+			List<UserLogMessage> results = null;
+			List<UserLogMessage> tmp = this.getUserLogMessages();
+			if (tmp.size() == 0) {
 				return null;
 			} 
 			else {
+				for (UserLogMessage item : tmp) {
+					if (item.getUser().equals(user)) {
+						results.add(item);
+					}
+				}
 				return results;
 			}
 		} catch (RuntimeException re) {
