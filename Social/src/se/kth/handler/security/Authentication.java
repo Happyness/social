@@ -10,7 +10,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import se.kth.model.UserHandler;
+import se.kth.handler.service.UserService;
 import se.kth.resource.SecurityUtils;
 
 @ManagedBean
@@ -61,7 +61,7 @@ public class Authentication implements Serializable
 	
 	public String doLogin()
 	{
-		UserHandler uh = new UserHandler();
+		UserService uh = new UserService();
 		
 		if (username.equals("admin") && password.equals("admin"))
 		{

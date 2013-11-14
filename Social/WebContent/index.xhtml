@@ -8,11 +8,11 @@
 
     <ui:define name="content">
     	<h:panelGroup rendered="#{tokenSession.authorized}">
-    		<h:outputText value="#{profile.load()}"/>
-    		Welcome #{profile.firstName}
+    		<h:outputText value="#{profileHandler.load()}"/>
+    		Welcome #{profileHandler.firstName}
     		
     		<ul>
-    			<c:forEach items="#{userHandler.users}" var="item">
+    			<c:forEach items="#{userService.users}" var="item">
 				   	<li><h:link value="#{item.username}" outcome="/user/wall">
 				        <f:param name="id" value="#{item.userId}" />
 				    </h:link></li>

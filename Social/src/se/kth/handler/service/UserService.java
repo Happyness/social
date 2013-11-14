@@ -1,4 +1,4 @@
-package se.kth.model;
+package se.kth.handler.service;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,7 +15,7 @@ import se.kth.resource.SecurityUtils;
 import org.hibernate.Transaction;
 
 @ManagedBean
-public class UserHandler implements Serializable
+public class UserService implements Serializable
 {
 	private UserDao userDao;
 	private User user;
@@ -23,7 +23,7 @@ public class UserHandler implements Serializable
 	private String response;
 	private List<User> users;
 	
-	public UserHandler()
+	public UserService()
 	{
 		userDao = new UserDao();
 	}

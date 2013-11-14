@@ -5,11 +5,11 @@ import java.util.Calendar;
 
 import javax.faces.bean.ManagedBean;
 
-import se.kth.model.UserHandler;
+import se.kth.handler.service.UserService;
 import se.kth.model.bo.UserProfile;
 
 @ManagedBean
-public class CreateUser implements Serializable
+public class CreateUserHandler implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	private String dobYearSelect = "1980";
@@ -137,7 +137,7 @@ public class CreateUser implements Serializable
 	
 	public void save()
 	{
-		UserHandler uh = new UserHandler();
+		UserService uh = new UserService();
 		UserProfile up = new UserProfile();   
 		up.setFirstName(name);
 		up.setSurname(surname);

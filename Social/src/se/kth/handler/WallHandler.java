@@ -13,8 +13,8 @@ import javax.faces.context.FacesContext;
 import org.hibernate.Transaction;
 
 import se.kth.handler.security.TokenSession;
-import se.kth.model.PrivateMessageHandler;
-import se.kth.model.UserLogHandler;
+import se.kth.handler.service.PrivateMessageService;
+import se.kth.handler.service.UserLogService;
 import se.kth.model.bo.PrivateMessage;
 import se.kth.model.bo.User;
 import se.kth.model.bo.UserLogMessage;
@@ -24,7 +24,7 @@ import se.kth.resource.HibernateUtil;
 
 @ManagedBean
 @SessionScoped
-public class Wall implements Serializable
+public class WallHandler implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -74,9 +74,9 @@ public class Wall implements Serializable
     public List<UserLogMessage> getMessagesByUser()
     {
     	if (id > 0) {
-    		messagesByUser = new UserLogHandler().getMessagesByUser(id);
+    		messagesByUser = new UserLogService().getMessagesByUser(id);
     	} else if (tokenSession.getProfile() != null) {
-    		messagesByUser = new UserLogHandler().getMessagesByUser(tokenSession.getProfile().getUserProfileId());
+    		messagesByUser = new UserLogService().getMessagesByUser(tokenSession.getProfile().getUserProfileId());
     	} else {
     		messagesByUser = new ArrayList<UserLogMessage>();
     	}
@@ -86,7 +86,7 @@ public class Wall implements Serializable
 	
 	public void save()
 	{
-		UserLogHandler ulh = new UserLogHandler();
+		UserLogService ulh = new UserLogService();
 		setResponse(ulh.createMessage(tokenSession.getProfile().getUserProfileId(), message));
 	}
 
