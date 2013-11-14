@@ -1,12 +1,10 @@
 package se.kth.model.dao;
 
-import java.io.Console;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
 
 import se.kth.model.bo.PrivateMessage;
@@ -44,13 +42,9 @@ public class PrivateMessageDao {
 	}
 	
 
+	@SuppressWarnings("null")
 	public List<PrivateMessage> getPrivateMessagesFrom(User user) {
 		try {
-			PrivateMessage pm = new PrivateMessage();
-			User u = new User();
-			u.setUserId(user.getUserId());
-			pm.setFromUser(u);
-			
 			Session session = sessionFactory.getCurrentSession();
 			List<PrivateMessage> results = (List<PrivateMessage>) session.createCriteria(PrivateMessage.class)
 					.add(Restrictions.eq("fromUser", user)).list();
@@ -66,6 +60,8 @@ public class PrivateMessageDao {
 		}
 	}
 	
+
+	@SuppressWarnings("null")
 	public List<PrivateMessage> getPrivateMessagesTo(User user)
 	{
 		try {

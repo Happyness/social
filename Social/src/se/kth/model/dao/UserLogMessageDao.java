@@ -43,6 +43,7 @@ public class UserLogMessageDao {
 		}
 	}
 	
+	@SuppressWarnings("null")
 	public List<UserLogMessage> getUserLogMessagesFrom(User user) {
 		try {
 			@SuppressWarnings("unchecked")
