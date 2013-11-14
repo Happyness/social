@@ -1,4 +1,4 @@
-package se.kth.model;
+package se.kth.handler.service;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,13 +12,13 @@ import se.kth.resource.HibernateUtil;
 
 import org.hibernate.Transaction;
 
-public class PrivateMessageHandler implements Serializable
+public class PrivateMessageService implements Serializable
 {
 	private PrivateMessageDao privateMsgDao;
 	private static final long serialVersionUID = 1L;
 	private String response;
 	
-	public PrivateMessageHandler()
+	public PrivateMessageService()
 	{
 		privateMsgDao = new PrivateMessageDao();
 	}

@@ -11,7 +11,7 @@ import javax.faces.bean.SessionScoped;
 import org.hibernate.Transaction;
 
 import se.kth.handler.security.TokenSession;
-import se.kth.model.PrivateMessageHandler;
+import se.kth.handler.service.PrivateMessageService;
 import se.kth.model.bo.PrivateMessage;
 import se.kth.model.bo.User;
 import se.kth.model.bo.UserProfile;
@@ -20,7 +20,7 @@ import se.kth.resource.HibernateUtil;
 
 @ManagedBean
 @SessionScoped
-public class PrivateMessages implements Serializable
+public class PrivateMessagesHandler implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -49,7 +49,7 @@ public class PrivateMessages implements Serializable
     public List<PrivateMessage> getMessagesToUser()
     {	
     	if (tokenSession.getProfile() != null) {
-    		messagesToUser = new PrivateMessageHandler().getMessagesToUser(tokenSession.getProfile().getUserProfileId());
+    		messagesToUser = new PrivateMessageService().getMessagesToUser(tokenSession.getProfile().getUserProfileId());
     		//response += tokenSession.getProfile().getUserProfileId();
     	} else {
     		messagesToUser = new ArrayList<PrivateMessage>();
@@ -86,7 +86,7 @@ public class PrivateMessages implements Serializable
 	
 	public void save()
 	{
-		PrivateMessageHandler pmh = new PrivateMessageHandler();
+		PrivateMessageService pmh = new PrivateMessageService();
 		UserProfile profile = tokenSession.getProfile();
 		
 		if (profile != null) {

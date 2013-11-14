@@ -7,22 +7,24 @@
    <ui:define name="title">Messages</ui:define>
 
     <ui:define name="content">
-    	<h:outputText value="#{privateMessages.response}" />
+    	<h:outputText value="#{privateMessagesHandler.response}" />
+    	<h1>Send Message</h1>
     	<h:form>
     		<h:panelGrid columns="2">
     		<h:outputLabel for="touser">To User:</h:outputLabel>
-	    	<h:selectOneMenu id="touser" value="#{privateMessages.toUserSelect}" required="true">
+	    	<h:selectOneMenu id="touser" value="#{privateMessagesHandler.toUserSelect}" required="true">
 	    		<f:selectItem itemValue="#{null}" itemLabel="Select user" />
-				<f:selectItems value="#{privateMessages.toUser}" var="c"
+				<f:selectItems value="#{privateMessagesHandler.toUser}" var="c"
 				 itemLabel="#{c.username}" itemValue="#{c.userId}" />
 			</h:selectOneMenu>
 			<h:outputLabel for="message">Message:</h:outputLabel>
-	    	<h:inputTextarea id="message" cols="30" rows="5" value="#{privateMessages.message}" />
+	    	<h:inputTextarea id="message" cols="30" rows="5" value="#{privateMessagesHandler.message}" />
 			</h:panelGrid>
-			 <h:commandButton value="Send message" action="#{privateMessages.save}"></h:commandButton>
+			 <h:commandButton value="Send message" action="#{privateMessagesHandler.save}"></h:commandButton>
 		</h:form>
+		<h1>Private messages</h1>
 		<ul>
-			<c:forEach items="#{privateMessages.messagesToUser}" var="item">
+			<c:forEach items="#{privateMessagesHandler.messagesToUser}" var="item">
 			<li><h:outputText value="#{item.messageSent}"/> : <strong><h:outputText value="#{item.message}"/></strong></li>
 			</c:forEach>
 		</ul>

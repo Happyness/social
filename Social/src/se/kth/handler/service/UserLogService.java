@@ -1,4 +1,4 @@
-package se.kth.model;
+package se.kth.handler.service;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,13 +16,13 @@ import se.kth.resource.HibernateUtil;
 //import javax.faces.bean.ManagedBean;
 //import javax.faces.bean.SessionScoped;
 
-public class UserLogHandler implements Serializable
+public class UserLogService implements Serializable
 {
 	private UserLogMessageDao logMsgDao;
 	private static final long serialVersionUID = 1L;
 	private String response;
 	
-	public UserLogHandler()
+	public UserLogService()
 	{
 		logMsgDao = new UserLogMessageDao();
 	}

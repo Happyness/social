@@ -7,11 +7,11 @@
 
     <ui:define name="content">
     	<ul>
-    		<h:outputText value="#{profile.load()}"/>
-    		<li>First name: <h:outputText value="#{profile.firstName}"></h:outputText></li>
-    		<li>Last name: <h:outputText value="#{profile.surName}"></h:outputText></li>
-    		<li>Email: <h:outputText value="#{profile.email}"></h:outputText></li>
-    		<li>Date of Birth: <h:outputText value="#{profile.dob}"></h:outputText></li>
+    		<h:outputText value="#{profileHandler.load()}"/>
+    		<li>First name: <h:outputText value="#{profileHandler.firstName}"></h:outputText></li>
+    		<li>Last name: <h:outputText value="#{profileHandler.surName}"></h:outputText></li>
+    		<li>Email: <h:outputText value="#{profileHandler.email}"></h:outputText></li>
+    		<li>Date of Birth: <h:outputText value="#{profileHandler.dob}"></h:outputText></li>
     	</ul>
     </ui:define>
 </ui:composition>

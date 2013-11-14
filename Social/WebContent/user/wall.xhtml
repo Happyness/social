@@ -7,26 +7,29 @@
    <ui:define name="title">My wall</ui:define>
 
     <ui:define name="content">
+    	 <h1>Profile</h1>
     	 <ul>
-    		<h:outputText value="#{profile.load()}"/>
-    		<li>First name: <h:outputText value="#{profile.firstName}"></h:outputText></li>
-    		<li>Last name: <h:outputText value="#{profile.surName}"></h:outputText></li>
-    		<li>Email: <h:outputText value="#{profile.email}"></h:outputText></li>
-    		<li>Date of Birth: <h:outputText value="#{profile.dob}"></h:outputText></li>
+    		<h:outputText value="#{profileHandler.load()}"/>
+    		<li>First name: <h:outputText value="#{profileHandler.firstName}"></h:outputText></li>
+    		<li>Last name: <h:outputText value="#{profileHandler.surName}"></h:outputText></li>
+    		<li>Email: <h:outputText value="#{profileHandler.email}"></h:outputText></li>
+    		<li>Date of Birth: <h:outputText value="#{profileHandler.dob}"></h:outputText></li>
     	</ul>
-    	<h:outputText value="#{wall.response}" />
-    	<h:outputText value="#{wall.load()}"/>
-    	<h:panelGroup rendered="#{wall.myOwn}">
+    	<h:outputText value="#{wallHandler.response}" />
+    	<h:outputText value="#{wallHandler.load()}"/>
+    	<h:panelGroup rendered="#{wallHandler.myOwn}">
+    	<h1>What is on your mind?</h1>
     	<h:form>
     		<h:panelGrid columns="2">
 			<h:outputLabel for="message">New status message:</h:outputLabel>
-	    	<h:inputTextarea id="message" cols="30" rows="2" value="#{wall.message}" />
+	    	<h:inputTextarea id="message" cols="30" rows="2" value="#{wallHandler.message}" />
 			</h:panelGrid>
-			 <h:commandButton value="Send message" action="#{wall.save}"></h:commandButton>
+			 <h:commandButton value="Send message" action="#{wallHandler.save}"></h:commandButton>
 		</h:form>
 		</h:panelGroup>
+		<h1>Wall posts</h1>
 		<ul>
-			<c:forEach items="#{wall.messagesByUser}" var="item">
+			<c:forEach items="#{wallHandler.messagesByUser}" var="item">
 			<li><h:outputText value="#{item.messageSent}"/> : <strong><h:outputText value="#{item.message}"/></strong></li>
 			</c:forEach>
 		</ul>
