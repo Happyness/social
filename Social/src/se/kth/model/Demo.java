@@ -39,8 +39,8 @@ public class Demo {
 		tx.commit();
 		PrivateMessage pm = new PrivateMessage();
 		pm.setMessage("Test2 PM!");
-		pm.setUserByFromUser(user);
-		pm.setUserByToUser(user2);
+		pm.setFromUser(user);
+		pm.setToUser(user2);
 		
 
 		Transaction tx2 = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
@@ -50,8 +50,8 @@ public class Demo {
 		
 		for (PrivateMessage item : pmList) {
 			System.out.println("Message sent: " + item.getMessageSent().toString());
-			System.out.println("Message to: " + item.getUserByToUser().getUsername());
-			System.out.println("Message from: " + item.getUserByFromUser().getUsername());
+			System.out.println("Message to: " + item.getToUser().getUsername());
+			System.out.println("Message from: " + item.getFromUser().getUsername());
 			System.out.println("Message: " + item.getMessage());
 		}
 

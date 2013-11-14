@@ -6,12 +6,12 @@
     <class name="se.kth.model.bo.PrivateMessage" table="private_message" catalog="social">
         <id name="privateMessageId" type="int">
             <column name="PRIVATE_MESSAGE_ID" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
-        <many-to-one name="userByToUser" class="se.kth.model.bo.User" fetch="select" lazy="false">
+        <many-to-one name="toUser" class="se.kth.model.bo.User" fetch="select">
             <column name="TO_USER" not-null="true" />
         </many-to-one>
-        <many-to-one name="userByFromUser" class="se.kth.model.bo.User" fetch="select" lazy="false">
+        <many-to-one name="fromUser" class="se.kth.model.bo.User" fetch="select">
             <column name="FROM_USER" not-null="true" />
         </many-to-one>
         <property name="message" type="string">

@@ -50,6 +50,7 @@ public class PrivateMessages implements Serializable
     {	
     	if (tokenSession.getProfile() != null) {
     		messagesToUser = new PrivateMessageHandler().getMessagesToUser(tokenSession.getProfile().getUserProfileId());
+    		//response += tokenSession.getProfile().getUserProfileId();
     	} else {
     		messagesToUser = new ArrayList<PrivateMessage>();
     	}

@@ -53,7 +53,7 @@ public class UserLogHandler implements Serializable
 			UserLogMessage ulm = new UserLogMessage();
 			ulm.setUser(user);
 			ulm.setMessage(message);
-			//ulm.setTimestamp(new Date());
+			ulm.setMessageSent(new Date());
 			
 			logMsgDao.addUserLogMessage(ulm);
 			trans.commit();

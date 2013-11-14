@@ -1,10 +1,13 @@
 package se.kth.model.dao;
 
+import java.io.Console;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Restrictions;
 
 import se.kth.model.bo.PrivateMessage;
 import se.kth.model.bo.User;
@@ -44,9 +47,14 @@ public class PrivateMessageDao {
 	public List<PrivateMessage> getPrivateMessagesFrom(User user) {
 		try {
 			PrivateMessage pm = new PrivateMessage();
-			pm.setUserByFromUser(user);
-			@SuppressWarnings("unchecked")
-			List<PrivateMessage> results = (List<PrivateMessage>) sessionFactory.getCurrentSession().createCriteria(PrivateMessage.class).add(Example.create(pm)).list();
+			User u = new User();
+			u.setUserId(user.getUserId());
+			pm.setFromUser(u);
+			
+			Session session = sessionFactory.getCurrentSession();
+			List<PrivateMessage> results = (List<PrivateMessage>) session.createCriteria(PrivateMessage.class)
+					.add(Restrictions.eq("fromUser", user)).list();
+			
 			if (results.size() == 0) {
 				return null;
 			} 
@@ -58,15 +66,16 @@ public class PrivateMessageDao {
 		}
 	}
 	
-	public List<PrivateMessage> getPrivateMessagesTo(User user) {
+	public List<PrivateMessage> getPrivateMessagesTo(User user)
+	{
 		try {
-			PrivateMessage pm = new PrivateMessage();
-			pm.setUserByToUser(user);
-			@SuppressWarnings("unchecked")
-			List<PrivateMessage> results = (List<PrivateMessage>) sessionFactory.getCurrentSession().createCriteria(PrivateMessage.class).add(Example.create(pm)).list();
+			Session session = sessionFactory.getCurrentSession();
+			
+			List<PrivateMessage> results = (List<PrivateMessage>) session.createCriteria(PrivateMessage.class)
+					.add(Restrictions.eq("toUser", user)).list();
 			if (results.size() == 0) {
 				return null;
-			} 
+			}
 			else {
 				return results;
 			}

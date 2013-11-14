@@ -3,9 +3,12 @@ package se.kth.model.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Restrictions;
 
+import se.kth.model.bo.PrivateMessage;
 import se.kth.model.bo.User;
 import se.kth.model.bo.UserLogMessage;
 import se.kth.resource.HibernateUtil;
@@ -42,10 +45,11 @@ public class UserLogMessageDao {
 	
 	public List<UserLogMessage> getUserLogMessagesFrom(User user) {
 		try {
-			UserLogMessage ulm = new UserLogMessage();
-			ulm.setUser(user);
 			@SuppressWarnings("unchecked")
-			List<UserLogMessage> results = (List<UserLogMessage>) sessionFactory.getCurrentSession().createCriteria(UserLogMessage.class).add(Example.create(ulm)).list();
+			Session session = sessionFactory.getCurrentSession();
+			List<UserLogMessage> results = (List<UserLogMessage>) session.createCriteria(UserLogMessage.class)
+			.add(Restrictions.eq("user", user)).list();
+
 			if (results.size() == 0) {
 				return null;
 			} 

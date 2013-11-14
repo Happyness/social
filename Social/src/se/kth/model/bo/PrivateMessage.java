@@ -11,8 +11,8 @@ public class PrivateMessage implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int privateMessageId;
-	private User userByToUser;
-	private User userByFromUser;
+	private User toUser;
+	private User fromUser;
 	private String message;
 	private Date messageSent;
 
@@ -22,16 +22,12 @@ public class PrivateMessage implements java.io.Serializable {
 	public PrivateMessage(int privateMessageId, User userByToUser,
 			User userByFromUser, Date messageSent) {
 		this.privateMessageId = privateMessageId;
-		this.userByToUser = userByToUser;
-		this.userByFromUser = userByFromUser;
 		this.messageSent = messageSent;
 	}
 
 	public PrivateMessage(int privateMessageId, User userByToUser,
 			User userByFromUser, String message, Date messageSent) {
 		this.privateMessageId = privateMessageId;
-		this.userByToUser = userByToUser;
-		this.userByFromUser = userByFromUser;
 		this.message = message;
 		this.messageSent = messageSent;
 	}
@@ -44,20 +40,20 @@ public class PrivateMessage implements java.io.Serializable {
 		this.privateMessageId = privateMessageId;
 	}
 
-	public User getUserByToUser() {
-		return this.userByToUser;
+	public User getToUser() {
+		return this.toUser;
 	}
 
-	public void setUserByToUser(User userByToUser) {
-		this.userByToUser = userByToUser;
+	public void setToUser(User userByToUser) {
+		this.toUser = userByToUser;
 	}
 
-	public User getUserByFromUser() {
-		return this.userByFromUser;
+	public User getFromUser() {
+		return this.fromUser;
 	}
 
-	public void setUserByFromUser(User userByFromUser) {
-		this.userByFromUser = userByFromUser;
+	public void setFromUser(User userByFromUser) {
+		this.fromUser = userByFromUser;
 	}
 
 	public String getMessage() {

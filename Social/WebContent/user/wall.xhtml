@@ -27,7 +27,7 @@
 		</h:panelGroup>
 		<ul>
 			<c:forEach items="#{wall.messagesByUser}" var="item">
-			<li> : <strong><h:outputText value="#{item.message}"/></strong></li>
+			<li><h:outputText value="#{item.messageSent}"/> : <strong><h:outputText value="#{item.message}"/></strong></li>
 			</c:forEach>
 		</ul>
     </ui:define>

@@ -40,8 +40,8 @@ public class PrivateMessageHandler implements Serializable
 			User to_user = new UserDao().getUser(to_id);
 			User from_user = new UserDao().getUser(from_id);
 			PrivateMessage msg = new PrivateMessage();
-			msg.setUserByFromUser(from_user);
-			msg.setUserByToUser(to_user);
+			msg.setFromUser(from_user);
+			msg.setToUser(to_user);
 			msg.setMessage(message);
 			//msg.setTimestamp(new Date());
 			
