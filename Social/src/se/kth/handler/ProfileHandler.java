@@ -1,31 +1,27 @@
 package se.kth.handler;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Transaction;
 
 import se.kth.handler.security.TokenSession;
-import se.kth.handler.service.PrivateMessageService;
-import se.kth.handler.service.UserLogService;
-import se.kth.model.bo.PrivateMessage;
 import se.kth.model.bo.User;
-import se.kth.model.bo.UserLogMessage;
 import se.kth.model.bo.UserProfile;
 import se.kth.model.dao.UserDao;
+import se.kth.resource.BaseResource;
 import se.kth.resource.HibernateUtil;
+import se.kth.resource.UserResource;
+import se.kth.resource.UserServerResource;
 
 @ManagedBean
 @SessionScoped
-public class ProfileHandler implements Serializable
+public class ProfileHandler extends ClientHandler implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -55,12 +51,19 @@ public class ProfileHandler implements Serializable
 		String id = map.get("id");
 		
 	    if(id != null) {
+			UserResource ur = ClientHandler.getObjectResource("/user/" + id, UserResource.class);
+			
+			if (ur != null) {
+				System.out.println(ur.getUser().getUsername());
+			}
+			/*
 	    	Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 	    	User user = new UserDao().getUser(Integer.parseInt(id));
 	    	trans.commit();
+	    	*/
 	    	
-	    	if (user != null) {
-		    	UserProfile up = user.getUserProfile();
+	    	if (ur.getUser() != null) {
+		    	UserProfile up = ur.getUser().getUserProfile();
 		    	if (up != null)
 		    		profile = up;
 	    	}

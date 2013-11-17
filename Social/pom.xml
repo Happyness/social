@@ -14,14 +14,24 @@
 			<name>Prime Repo</name>
 			<url>http://repository.primefaces.org</url>
 		</repository>
+		<repository>
+		   <id>maven-restlet</id>
+		   <name>Public online Restlet repository</name>
+		   <url>http://maven.restlet.org</url>
+		</repository> 
 	</repositories>
 	<dependencies>
-
+	<!-- RESTLET -->
 		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>bluesky</artifactId>
-			<version>1.0.6</version>
+		  <groupId>org.restlet.jee</groupId>
+		  <artifactId>org.restlet</artifactId>
+		  <version>2.1-M3</version>
 		</dependency>
+		<dependency>
+	      <groupId>org.restlet.jee</groupId>
+	      <artifactId>org.restlet.ext.servlet</artifactId>
+	      <version>2.1-M3</version>
+	    </dependency>
 
 		<!-- JSF -->
 		<dependency>
@@ -75,6 +85,7 @@
 			<version>5.1.27</version>
 		</dependency>
 
+		<!-- Apache Common dependecys -->
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
