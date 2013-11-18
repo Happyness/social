@@ -21,7 +21,7 @@
  </context-param>
     <filter>
     <filter-name>AdminAuthFilter</filter-name>
-    <filter-class>se.kth.handler.security.AdminAuthFilter</filter-class>
+    <filter-class>se.kth.frontend.handler.security.AdminAuthFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>AdminAuthFilter</filter-name>
@@ -31,7 +31,7 @@
   </filter-mapping>
    <filter>
     <filter-name>UserAuthFilter</filter-name>
-    <filter-class>se.kth.handler.security.UserAuthFilter</filter-class>
+    <filter-class>se.kth.frontend.handler.security.UserAuthFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>UserAuthFilter</filter-name>

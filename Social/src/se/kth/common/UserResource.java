@@ -10,7 +10,6 @@ import se.kth.common.model.bo.UserProfile;
 
 public interface UserResource
 {
-	/*
     @Get
     public User getUser();
     
@@ -18,5 +17,5 @@ public interface UserResource
     public List<User> getUsers();
     
     @Get
-    public UserProfile getProfile();*/
+    public UserProfile getProfile();
 }

@@ -26,13 +26,6 @@ public class UserServerResource extends ServerResource implements UserResource
         this.id = (String) getRequestAttributes().get("userid");
     }
 	
-	@Override
-	public Representation get()
-	{
-		return new StringRepresentation("test");
-	}
-	
-	/*
     @Override
     public User getUser()
     {
@@ -74,5 +67,5 @@ public class UserServerResource extends ServerResource implements UserResource
 		}
 		
 		return new UserProfile();
-	}*/
+	}
 }

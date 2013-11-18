@@ -23,10 +23,12 @@ public class ClientHandler
 	public static <T> T getObjectResource(String uri, Class<T> type)
 	{
 		ClientResource resource = ClientHandler.getResource(uri);
-		resource.setNext(new Client(new Context(), Protocol.HTTP));
+		//resource.setNext(new Client(new Context(), Protocol.HTTP));
 
     	try {
-			return resource.wrap(type);
+			T test = resource.wrap(type);
+			//resource.release();
+			return test;
 		} catch (ResourceException e) {
 			e.printStackTrace();
 			return null;
