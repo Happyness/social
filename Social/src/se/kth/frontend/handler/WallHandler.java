@@ -12,12 +12,12 @@ import javax.faces.context.FacesContext;
 
 import org.hibernate.Transaction;
 
-import se.kth.backend.model.bo.PrivateMessage;
-import se.kth.backend.model.bo.User;
-import se.kth.backend.model.bo.UserLogMessage;
-import se.kth.backend.model.bo.UserProfile;
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.HibernateUtil;
+import se.kth.common.model.bo.PrivateMessage;
+import se.kth.common.model.bo.User;
+import se.kth.common.model.bo.UserLogMessage;
+import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.security.TokenSession;
 import se.kth.frontend.handler.service.PrivateMessageService;
 import se.kth.frontend.handler.service.UserLogService;

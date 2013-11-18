@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Nov 13, 2013 2:23:29 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="se.kth.model.bo.User" table="user" catalog="social">
+    <class name="se.kth.common.model.bo.User" table="user" catalog="social">
         <id name="userId" type="java.lang.Integer">
             <column name="USER_ID" />
             <generator class="identity" />
@@ -14,24 +14,24 @@
         <property name="password" type="string">
             <column name="PASSWORD" />
         </property>
-        <one-to-one name="userProfile" class="se.kth.model.bo.UserProfile" cascade="save-update"></one-to-one>
+        <one-to-one name="userProfile" class="se.kth.common.model.bo.UserProfile" cascade="save-update"></one-to-one>
         <set name="userLogMessages" table="user_log_message" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="USER" not-null="true" />
             </key>
-            <one-to-many class="se.kth.model.bo.UserLogMessage" />
+            <one-to-many class="se.kth.common.model.bo.UserLogMessage" />
         </set>
         <set name="privateMessagesForFromUser" table="private_message" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="FROM_USER" not-null="true" />
             </key>
-            <one-to-many class="se.kth.model.bo.PrivateMessage" />
+            <one-to-many class="se.kth.common.model.bo.PrivateMessage" />
         </set>
         <set name="privateMessagesForToUser" table="private_message" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="TO_USER" not-null="true" />
             </key>
-            <one-to-many class="se.kth.model.bo.PrivateMessage" />
+            <one-to-many class="se.kth.common.model.bo.PrivateMessage" />
         </set>
     </class>
 </hibernate-mapping>

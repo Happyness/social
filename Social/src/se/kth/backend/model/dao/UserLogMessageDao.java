@@ -8,10 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
 
-import se.kth.backend.model.bo.PrivateMessage;
-import se.kth.backend.model.bo.User;
-import se.kth.backend.model.bo.UserLogMessage;
 import se.kth.backend.resource.HibernateUtil;
+import se.kth.common.model.bo.PrivateMessage;
+import se.kth.common.model.bo.User;
+import se.kth.common.model.bo.UserLogMessage;
 import static org.hibernate.criterion.Example.create;
 
 public class UserLogMessageDao {
@@ -30,7 +30,7 @@ public class UserLogMessageDao {
 	public UserLogMessage getUserLogMessage(int id) {
 		try {
 			UserLogMessage ulm = (UserLogMessage) sessionFactory.getCurrentSession().get(
-					"se.kth.model.bo.UserLogMessage", id);
+					"se.kth.common.model.bo.UserLogMessage", id);
 			if (ulm == null) {
 				// TODO: nothing found
 			} 
@@ -83,7 +83,7 @@ public class UserLogMessageDao {
 		try {
 			@SuppressWarnings("unchecked")
 			List<UserLogMessage> list = (List<UserLogMessage>) sessionFactory
-					.getCurrentSession().createCriteria("se.kth.model.bo.UserLogMessage")
+					.getCurrentSession().createCriteria("se.kth.common.model.bo.UserLogMessage")
 					.add(create(new UserLogMessage())).list();
 			return list;
 		} catch (RuntimeException re) {

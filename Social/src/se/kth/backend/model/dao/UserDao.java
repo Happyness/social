@@ -6,8 +6,8 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
-import se.kth.backend.model.bo.User;
 import se.kth.backend.resource.HibernateUtil;
+import se.kth.common.model.bo.User;
 
 public class UserDao {
 	
@@ -25,7 +25,7 @@ public class UserDao {
 	public User getUser(int id) {
 		try {
 			User user = (User) sessionFactory.getCurrentSession().get(
-					"se.kth.model.bo.User", id);
+					"se.kth.common.model.bo.User", id);
 			if (user == null) {
 				// TODO: nothing found
 			} 

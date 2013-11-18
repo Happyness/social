@@ -1,4 +1,4 @@
-package se.kth.backend.model.bo;
+package se.kth.common.model.bo;
 
 // Generated Nov 13, 2013 3:03:35 PM by Hibernate Tools 4.0.0
 

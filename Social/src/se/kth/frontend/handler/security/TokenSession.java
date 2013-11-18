@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import se.kth.backend.model.bo.UserProfile;
+import se.kth.common.model.bo.UserProfile;
 
 @ManagedBean
 @SessionScoped

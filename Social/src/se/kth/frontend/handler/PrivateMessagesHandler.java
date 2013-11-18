@@ -1,5 +1,6 @@
 package se.kth.frontend.handler;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +9,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import org.hibernate.Transaction;
+import org.restlet.representation.Representation;
 
-import se.kth.backend.model.bo.PrivateMessage;
-import se.kth.backend.model.bo.User;
-import se.kth.backend.model.bo.UserProfile;
-import se.kth.backend.model.dao.UserDao;
-import se.kth.backend.resource.HibernateUtil;
+import se.kth.common.Converter;
+import se.kth.common.PrivateMessageResource;
+import se.kth.common.UserResource;
+import se.kth.common.model.bo.PrivateMessage;
+import se.kth.common.model.bo.User;
+import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.security.TokenSession;
 import se.kth.frontend.handler.service.PrivateMessageService;
 
@@ -47,9 +49,12 @@ public class PrivateMessagesHandler implements Serializable
     }
     
     public List<PrivateMessage> getMessagesToUser()
-    {	
+    {
     	if (tokenSession.getProfile() != null) {
-    		messagesToUser = new PrivateMessageService().getMessagesToUser(tokenSession.getProfile().getUserProfileId());
+    		int id = tokenSession.getProfile().getUserProfileId();
+			PrivateMessageResource ur = ClientHandler.getObjectResource("/messages/" + id, PrivateMessageResource.class);
+	    	messagesToUser = ur.getMessages();
+    		//messagesToUser = new PrivateMessageService().getMessagesToUser();
     		//response += tokenSession.getProfile().getUserProfileId();
     	} else {
     		messagesToUser = new ArrayList<PrivateMessage>();
@@ -60,16 +65,17 @@ public class PrivateMessagesHandler implements Serializable
  
 	public List<User> getToUser()
 	{
-		Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-		List<User> users = new UserDao().getUsers();
-		trans.commit();
+		List<User> users = null;
+		
+		UserResource ur = ClientHandler.getObjectResource("/users", UserResource.class);
+    	//users = ur.getUsers();
 		
 		int id = -1;
 		if (tokenSession.getProfile() != null) {
 			id = tokenSession.getProfile().getUserProfileId();
 		}
 		
-		if (users.size() > 1) {
+		if (users != null && users.size() > 1) {
 			toUser = new ArrayList<User>();
 			
 			for (int i = 0; i < users.size(); i++) {
@@ -84,8 +90,14 @@ public class PrivateMessagesHandler implements Serializable
 		return toUser;
 	}
 	
-	public void save()
+	public String save()
 	{
+		return ClientHandler.server + "/message/" + toUserSelect;
+		//PrivateMessageResource pmr = ClientHandler.getObjectResource("/message/" + toUserSelect,
+		//		PrivateMessageResource.class);
+    	//pmr.sendMessage(new Representation(""));
+    	
+		/*
 		PrivateMessageService pmh = new PrivateMessageService();
 		UserProfile profile = tokenSession.getProfile();
 		
@@ -93,10 +105,11 @@ public class PrivateMessagesHandler implements Serializable
 			setResponse(pmh.createMessage(Integer.parseInt(toUserSelect), profile.getUserProfileId(), message));
 		} else {
 			setResponse("No profile available");
-		}
+		}*/
 	}
 
-	public String getTo_id() {
+	public String getTo_id()
+	{
 		return to_id;
 	}
 

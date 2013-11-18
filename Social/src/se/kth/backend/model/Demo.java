@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.hibernate.Transaction;
 
-import se.kth.backend.model.bo.PrivateMessage;
-import se.kth.backend.model.bo.User;
-import se.kth.backend.model.bo.UserProfile;
 import se.kth.backend.model.dao.PrivateMessageDao;
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.HibernateUtil;
+import se.kth.common.model.bo.PrivateMessage;
+import se.kth.common.model.bo.User;
+import se.kth.common.model.bo.UserProfile;
 
 public class Demo {
 

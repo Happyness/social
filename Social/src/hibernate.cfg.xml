@@ -16,9 +16,9 @@
          <!-- <property name="show_sql">true</property>-->
           <!--<property name="format_sql">true</property>-->
          <!--<property name="use_sql_comments">true</property>-->
-        <mapping resource="se/kth/model/bo/UserLogMessage.hbm.xml" />
-        <mapping resource="se/kth/model/bo/PrivateMessage.hbm.xml" />
-        <mapping resource="se/kth/model/bo/User.hbm.xml" />
-        <mapping resource="se/kth/model/bo/UserProfile.hbm.xml" />
+        <mapping resource="se/kth/common/model/bo/UserLogMessage.hbm.xml" />
+        <mapping resource="se/kth/common/model/bo/PrivateMessage.hbm.xml" />
+        <mapping resource="se/kth/common/model/bo/User.hbm.xml" />
+        <mapping resource="se/kth/common/model/bo/UserProfile.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

@@ -3,14 +3,14 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Nov 13, 2013 3:03:35 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="se.kth.model.bo.UserProfile" table="user_profile" catalog="social">
+    <class name="se.kth.common.model.bo.UserProfile" table="user_profile" catalog="social">
         <id name="userProfileId" type="int">
             <column name="USER_PROFILE_ID" />
             <generator class="foreign">
                 <param name="property">user</param>
             </generator>
         </id>
-        <one-to-one name="user" class="se.kth.model.bo.User" constrained="true"></one-to-one>
+        <one-to-one name="user" class="se.kth.common.model.bo.User" constrained="true"></one-to-one>
         <property name="firstName" type="string">
             <column name="FIRST_NAME" />
         </property>

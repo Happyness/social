@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 
-import se.kth.backend.model.bo.UserProfile;
 import se.kth.backend.resource.HibernateUtil;
+import se.kth.common.model.bo.UserProfile;
 import static org.hibernate.criterion.Example.create;
 
 public class UserProfileDao {
@@ -24,7 +24,7 @@ public class UserProfileDao {
 	public UserProfile getUserProfile(int id) {
 		try {
 			UserProfile userProfile = (UserProfile) sessionFactory.getCurrentSession().get(
-					"se.kth.model.bo.User", id);
+					"se.kth.common.model.bo.User", id);
 			if (userProfile == null) {
 				// TODO: nothing found
 			} 
@@ -57,7 +57,7 @@ public class UserProfileDao {
 		try {
 			@SuppressWarnings("unchecked")
 			List<UserProfile> list = (List<UserProfile>) sessionFactory
-					.getCurrentSession().createCriteria("se.kth.model.bo.UserProfile")
+					.getCurrentSession().createCriteria("se.kth.common.model.bo.UserProfile")
 					.add(create(new UserProfile())).list();
 			return list;
 		} catch (RuntimeException re) {

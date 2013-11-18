@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 import javax.faces.bean.ManagedBean;
 
-import se.kth.backend.model.bo.UserProfile;
+import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.service.UserService;
 
 @ManagedBean

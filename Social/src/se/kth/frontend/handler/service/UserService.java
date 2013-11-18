@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import se.kth.backend.model.bo.User;
-import se.kth.backend.model.bo.UserProfile;
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.HibernateUtil;
 import se.kth.backend.resource.SecurityUtils;
+import se.kth.common.model.bo.User;
+import se.kth.common.model.bo.UserProfile;
 
 import org.hibernate.Transaction;
 

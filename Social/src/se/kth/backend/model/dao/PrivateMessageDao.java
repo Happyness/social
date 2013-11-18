@@ -7,9 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 
-import se.kth.backend.model.bo.PrivateMessage;
-import se.kth.backend.model.bo.User;
 import se.kth.backend.resource.HibernateUtil;
+import se.kth.common.model.bo.PrivateMessage;
+import se.kth.common.model.bo.User;
 import static org.hibernate.criterion.Example.create;
 
 public class PrivateMessageDao {
@@ -28,7 +28,7 @@ public class PrivateMessageDao {
 	public PrivateMessage getPrivateMessage(int id) {
 		try {
 			PrivateMessage pm = (PrivateMessage) sessionFactory.getCurrentSession().get(
-					"se.kth.model.bo.PrivateMessage", id);
+					"se.kth.common.model.bo.PrivateMessage", id);
 			if (pm == null) {
 				// TODO: nothing found
 			} 
@@ -101,7 +101,7 @@ public class PrivateMessageDao {
 		try {
 			@SuppressWarnings("unchecked")
 			List<PrivateMessage> list = (List<PrivateMessage>) sessionFactory
-					.getCurrentSession().createCriteria("se.kth.model.bo.PrivateMessage")
+					.getCurrentSession().createCriteria("se.kth.common.model.bo.PrivateMessage")
 					.add(create(new PrivateMessage())).list();
 			return list;
 		} catch (RuntimeException re) {

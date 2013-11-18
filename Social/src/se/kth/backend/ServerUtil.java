@@ -1,5 +1,7 @@
 package se.kth.backend;
 
+import java.net.BindException;
+
 import org.restlet.Component;
 import org.restlet.Restlet;
 import org.restlet.Server;
@@ -12,13 +14,20 @@ public class ServerUtil extends ServerResource {
 
 	public static void main(String[] args)
 	{
-		try {
-			Component component = new Component();
-			component.getServers().add(Protocol.HTTP, 8182);
-			component.getDefaultHost().attach("/social", new SocialApplication());
-			component.start();
-		} catch (Exception e) {
-			e.printStackTrace();
+		Component component = new Component();
+		component.getServers().add(Protocol.HTTP, 8182);
+		component.getDefaultHost().attach("/social", new SocialApplication());
+
+		if (!component.isStarted()) {
+			try {
+				component.start();
+			} catch (Exception ex) {
+				if (ex instanceof BindException) {
+					throw new RuntimeException("Server port already bound!");
+				}
+			}
+		} else {
+			// Already started?
 		}
 	}
 }

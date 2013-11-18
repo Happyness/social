@@ -10,13 +10,12 @@ import javax.faces.context.FacesContext;
 
 import org.hibernate.Transaction;
 
-import se.kth.backend.model.bo.User;
-import se.kth.backend.model.bo.UserProfile;
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.HibernateUtil;
 import se.kth.backend.resource.UserServerResource;
-import se.kth.common.BaseResource;
 import se.kth.common.UserResource;
+import se.kth.common.model.bo.User;
+import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.security.TokenSession;
 
 @ManagedBean
@@ -52,12 +51,7 @@ public class ProfileHandler extends ClientHandler implements Serializable
 		
 	    if(id != null) {
 			UserResource ur = ClientHandler.getObjectResource("/user/" + id, UserResource.class);
-	    	
-	    	if (ur.getUser() != null) {
-		    	UserProfile up = ur.getUser().getUserProfile();
-		    	if (up != null)
-		    		profile = up;
-	    	}
+	    	//profile = ur.getProfile();
 	    } else if (tokenSession.getProfile() != null) {
 	    	profile = tokenSession.getProfile();
 	    }

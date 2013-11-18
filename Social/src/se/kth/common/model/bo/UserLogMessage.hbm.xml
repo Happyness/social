@@ -3,12 +3,12 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Nov 13, 2013 3:03:35 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="se.kth.model.bo.UserLogMessage" table="user_log_message" catalog="social">
+    <class name="se.kth.common.model.bo.UserLogMessage" table="user_log_message" catalog="social">
         <id name="userLogMessageId" type="java.lang.Integer">
             <column name="USER_LOG_MESSAGE_ID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="user" class="se.kth.model.bo.User" fetch="select">
+        <many-to-one name="user" class="se.kth.common.model.bo.User" fetch="select">
             <column name="USER" not-null="true" />
         </many-to-one>
         <property name="message" type="string">
