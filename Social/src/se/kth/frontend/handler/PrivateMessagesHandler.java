@@ -9,14 +9,21 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import se.kth.common.Converter;
 import se.kth.common.PrivateMessageResource;
 import se.kth.common.PrivateMessagesResource;
 import se.kth.common.UserResource;
+import se.kth.common.UsersResource;
 import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
+import se.kth.common.model.bo.UserLogMessage;
 import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.security.TokenSession;
 import se.kth.frontend.handler.service.PrivateMessageService;
@@ -49,28 +56,31 @@ public class PrivateMessagesHandler implements Serializable
     	return tokenSession;
     }
     
-    public List<PrivateMessage> getMessagesToUser()
+    public List<PrivateMessage> getMessagesToUser() throws IOException
     {
     	if (tokenSession.getProfile() != null) {
     		int id = tokenSession.getProfile().getUserProfileId();
+    		List<PrivateMessage> messages = null;
+    		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			PrivateMessagesResource ur = ClientHandler.getObjectResource("/messages/" + id, PrivateMessagesResource.class);
-	    	messagesToUser = ur.getMessages();
-    		//messagesToUser = new PrivateMessageService().getMessagesToUser();
-    		//response += tokenSession.getProfile().getUserProfileId();
-    	} else {
-    		messagesToUser = new ArrayList<PrivateMessage>();
+			Representation jsonRep = new JsonRepresentation(ur.getMessages());
+			messages = gson.fromJson(jsonRep.getText(), new TypeToken<List<PrivateMessage>>() {}.getType());
+			
+			return messages;
     	}
-    	
-    	return messagesToUser;
+    	List<PrivateMessage> emptyList = new ArrayList<PrivateMessage>();
+		return emptyList;
     }
 
-	public List<User> getToUser()
+	public List<User> getToUser() throws IOException
 	{
 		List<User> users = null;
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		
-		UserResource ur = ClientHandler.getObjectResource("/users", UserResource.class);
-//    	users = ur.getUsers();
-		
+		UsersResource ur = ClientHandler.getObjectResource("/users", UsersResource.class);
+		Representation jsonRep = new JsonRepresentation(ur.getUsers());
+		users = gson.fromJson(jsonRep.getText(), new TypeToken<List<User>>() {}.getType());
+
 		int id = -1;
 		if (tokenSession.getProfile() != null) {
 			id = tokenSession.getProfile().getUserProfileId();
@@ -93,6 +103,7 @@ public class PrivateMessagesHandler implements Serializable
 	
 	public String save()
 	{
+		
 		return ClientHandler.server + "/message/" + toUserSelect;
 		//PrivateMessageResource pmr = ClientHandler.getObjectResource("/message/" + toUserSelect,
 		//		PrivateMessageResource.class);
