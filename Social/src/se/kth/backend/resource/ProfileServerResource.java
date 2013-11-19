@@ -45,7 +45,7 @@ public class ProfileServerResource extends ServerResource implements ProfileReso
     	
     	if (user instanceof User) {
     		String json = Converter.toJson(user.getUserProfile());
-    		System.out.println(json);
+    		//System.out.println(json);
     		return new JsonRepresentation(json);
     	}
     	

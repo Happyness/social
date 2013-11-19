@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 
 import se.kth.backend.model.dao.PrivateMessageDao;
 import se.kth.backend.model.dao.UserDao;
+import se.kth.common.Converter;
 import se.kth.common.PrivateMessagesResource;
 import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
@@ -29,10 +30,8 @@ public class PrivateMessagesServerResource extends ServerResource implements Pri
     }
 
 	@Override
-	@Get
 	public Representation getMessages()
 	{
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		List<PrivateMessage> messages = null;
 		Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 		User user = new UserDao().getUser(Integer.parseInt(id));
@@ -42,10 +41,9 @@ public class PrivateMessagesServerResource extends ServerResource implements Pri
 		}
     	trans.commit();
     	
-    	String jsonString = gson.toJson(messages);
+    	String jsonString = Converter.toJson(messages);
+    	System.out.println(jsonString);
     	Representation jsonRep = new JsonRepresentation(jsonString);
-    	
-    	
     	
     	return jsonRep;
 	}
