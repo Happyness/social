@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
+
 import com.google.gson.annotations.Expose;
 
 /**

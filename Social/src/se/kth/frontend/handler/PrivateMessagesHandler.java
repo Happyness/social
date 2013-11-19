@@ -54,7 +54,7 @@ public class PrivateMessagesHandler implements Serializable
     	if (tokenSession.getProfile() != null) {
     		int id = tokenSession.getProfile().getUserProfileId();
 			PrivateMessagesResource ur = ClientHandler.getObjectResource("/messages/" + id, PrivateMessagesResource.class);
-	    	messagesToUser = ur.getMessages();
+	    	//messagesToUser = ur.getMessages();
     		//messagesToUser = new PrivateMessageService().getMessagesToUser();
     		//response += tokenSession.getProfile().getUserProfileId();
     	} else {

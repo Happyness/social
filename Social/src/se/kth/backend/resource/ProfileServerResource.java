@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.EmptyRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
@@ -32,7 +33,7 @@ public class ProfileServerResource extends ServerResource implements ProfileReso
     }
 
 	@Override
-	public UserProfile getProfile()
+	public Representation getProfile()
 	{
     	User user = null;
     	
@@ -42,9 +43,12 @@ public class ProfileServerResource extends ServerResource implements ProfileReso
 	    	trans.commit();
     	}
     	
-    	if (user instanceof User)
-    		return user.getUserProfile();
+    	if (user instanceof User) {
+    		String json = Converter.toJson(user.getUserProfile());
+    		System.out.println(json);
+    		return new JsonRepresentation(json);
+    	}
     	
-        return new UserProfile();
+        return new EmptyRepresentation();
 	}
 }

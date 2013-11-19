@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
+import se.kth.backend.model.dao.UserDao;
+import se.kth.backend.resource.SecurityUtils;
+import se.kth.common.Converter;
 import se.kth.common.UserResource;
 import se.kth.common.UsersResource;
 import se.kth.common.model.bo.User;
@@ -155,6 +158,24 @@ public class UserHandler implements Serializable
 	
 	public void save()
 	{
+		UserProfile up = new UserProfile();   
+		up.setFirstName(name);
+		up.setSurname(surname);
+		up.setEmail(email);
+		
+		String dobio = dobYearSelect + "-" + dobMonthSelect + "-" + dobDaySelect;
+		up.setDateOfBirth(java.sql.Date.valueOf(dobio));
+	  
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(SecurityUtils.getHash(password));
+		user.setUserProfile(up);
+		up.setUser(user);
+		
+    	String jsonString = Converter.toJson(user);
+    	JsonRepresentation jsonRep = new JsonRepresentation(jsonString);
+    	
+    	/*
 		Form form = new Form();
 		form.add("username", username);
 		form.add("password", password);
@@ -163,10 +184,15 @@ public class UserHandler implements Serializable
 		form.add("email", email);
 		form.add("dobYearSelect", dobYearSelect);
 		form.add("dobMonthSelect", dobMonthSelect);
-		form.add("dobDaySelect", dobDaySelect);
+		form.add("dobDaySelect", dobDaySelect);*/
 		
-		UserResource user = ClientHandler.getObjectResource("/user/store", UserResource.class);
-		response = user.createUser(form.getWebRepresentation()).toString();
+		UserResource ur = ClientHandler.getObjectResource("/user/store", UserResource.class);
+		try {
+			response = ur.createUser(jsonRep).getText();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//return ClientHandler.server + "/user/store";
 		/*UserService uh = new UserService();
 		UserProfile up = new UserProfile();   

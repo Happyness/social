@@ -120,7 +120,7 @@ public class WallHandler implements Serializable
     	WallResource wr = ClientHandler.getObjectResource("/wall/" + getTokenSession().getProfile().getUserProfileId(), WallResource.class);
 		
     	try {
-			wr.postUserLogMessage(jsonRep);
+			setResponse(wr.postUserLogMessage(jsonRep).getText());
 		} catch (JSONException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

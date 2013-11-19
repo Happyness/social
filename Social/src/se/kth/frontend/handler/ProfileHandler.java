@@ -1,5 +1,6 @@
 package se.kth.frontend.handler;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ import org.hibernate.Transaction;
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.HibernateUtil;
 import se.kth.backend.resource.UserServerResource;
+import se.kth.common.Converter;
+import se.kth.common.ProfileResource;
 import se.kth.common.UserResource;
 import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserProfile;
@@ -50,8 +53,12 @@ public class ProfileHandler extends ClientHandler implements Serializable
 		String id = map.get("id");
 		
 	    if(id != null) {
-//			UserResource ur = ClientHandler.getObjectResource("/user/" + id, UserResource.class);
-//	    	profile = ur.getProfile();
+			ProfileResource ur = ClientHandler.getObjectResource("/user/profile/" + id, ProfileResource.class);
+	    	try {
+				profile = Converter.fromJson(ur.getProfile().getText(), UserProfile.class);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	    } else if (tokenSession.getProfile() != null) {
 	    	profile = tokenSession.getProfile();
 	    }

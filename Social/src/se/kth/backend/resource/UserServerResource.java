@@ -1,16 +1,19 @@
 package se.kth.backend.resource;
 
+import java.io.IOException;
 import java.util.Date;
 
 import org.hibernate.Transaction;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import se.kth.backend.model.dao.UserDao;
+import se.kth.common.Converter;
 import se.kth.common.UserResource;
 import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserProfile;
@@ -46,7 +49,8 @@ public class UserServerResource extends ServerResource implements UserResource
 
 	@Override
 	public Representation createUser(Representation entity)
-	{	
+	{
+		/*
 		  Form form = new Form(entity);
 		  String name = form.getFirstValue("name");
 		  String surname = form.getFirstValue("surname");
@@ -68,20 +72,29 @@ public class UserServerResource extends ServerResource implements UserResource
 		  
 			UserDao userDao = new UserDao();
 			User tmp = new User();
-			tmp.setUsername(username);
+			tmp.setUsername(username);*/
 			
+			String output = "";
 			Transaction trans = null;
+			UserDao userDao = new UserDao();
+			JsonRepresentation jsonRep;
+			User user = new User();
+			
+			try {
+				jsonRep = new JsonRepresentation(entity);
+				user = Converter.fromJson(jsonRep.getText(), User.class);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			User tmp = new User();
+			tmp.setUsername(user.getUsername());
 			
 			try {
 				trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-				User user = userDao.getUser(tmp);
+				User tmp2 = userDao.getUser(tmp);
 				
-				if (user == null) {
-					tmp.setPassword(SecurityUtils.getHash(password));
-					tmp.setUserAdded(new Date());
-					tmp.setUserProfile(up);
-					up.setUser(tmp);
-					userDao.addUser(tmp);
+				if (tmp2 == null) {
+					userDao.addUser(user);
 					trans.commit();
 					output = "User successfully was created in database.";
 				} else {
