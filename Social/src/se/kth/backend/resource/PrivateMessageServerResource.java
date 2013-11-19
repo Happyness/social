@@ -1,16 +1,20 @@
 package se.kth.backend.resource;
 
-import java.util.List;
+import java.io.IOException;
 
 import org.hibernate.Transaction;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import se.kth.backend.model.dao.PrivateMessageDao;
 import se.kth.backend.model.dao.UserDao;
@@ -29,57 +33,44 @@ public class PrivateMessageServerResource extends ServerResource implements
 	}
 
 	@Override
-	public PrivateMessage getMessage() {
+	@Get
+	public Representation getMessage() {
 		System.out.println("DEBUG: PrivateMessageServerResource.getMessage()");
-		PrivateMessage message = null;
+		Gson gson = new Gson();
+		PrivateMessage pm = null;
 
 		if (id != null) {
 			Transaction trans = HibernateUtil.getSessionFactory()
 					.getCurrentSession().beginTransaction();
-			message = new PrivateMessageDao().getPrivateMessage(Integer
+			pm = new PrivateMessageDao().getPrivateMessage(Integer
 					.parseInt(id));
 			trans.commit();
 		}
+		String jsonString = gson.toJson(pm);
+		Representation jsonRep = new JsonRepresentation(jsonString);
 
-		if (message instanceof PrivateMessage)
-			return message;
-
-		return new PrivateMessage();
+		return jsonRep;
 	}
 
 	@Override
-	public Representation sendMessage(Representation entity) {
+	@Post
+	public Representation sendMessage(Representation entity) throws IOException {
 		System.out.println("DEBUG: PrivateMessageServerResource.sendMessage()");
-		Form form = new Form(entity);
-		int to_id = Integer.parseInt(form.getFirstValue("touser"));
-		String message = form.getFirstValue("message");
+		Representation jsonRep = new JsonRepresentation(entity);
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		PrivateMessage pm = gson.fromJson(jsonRep.getText(), PrivateMessage.class);
+		
 		String output = "";
 
-		if (id != null) {
-			int from_id = Integer.parseInt(id);
-
-			Transaction trans = null;
-
-			try {
-				trans = HibernateUtil.getSessionFactory().getCurrentSession()
-						.beginTransaction();
-				User to_user = new UserDao().getUser(to_id);
-				User from_user = new UserDao().getUser(from_id);
-				PrivateMessage msg = new PrivateMessage();
-				msg.setFromUser(from_user);
-				msg.setToUser(to_user);
-				msg.setMessage(message);
-
-				new PrivateMessageDao().addPrivateMessage(msg);
-				trans.commit();
-				output = "Private message successfully sent";
-			} catch (RuntimeException e) {
-				HibernateUtil.getSessionFactory().getCurrentSession()
-						.getTransaction().rollback();
-				output = "Send new private message failed: " + e.getMessage();
-			}
-		} else {
-			output = "Cannot send message without id";
+		try {
+			Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+			new PrivateMessageDao().addPrivateMessage(pm);
+			trans.commit();
+			output = "Private message successfully sent";
+		} catch (RuntimeException e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			output = "Send new private message failed: " + e.getMessage();
 		}
 
 		return new StringRepresentation(output, MediaType.TEXT_PLAIN);
