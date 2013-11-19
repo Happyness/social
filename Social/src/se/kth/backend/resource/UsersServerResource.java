@@ -36,5 +36,4 @@ public class UsersServerResource extends ServerResource implements UsersResource
     	String jsonString = Converter.toJson(users);
     	return new JsonRepresentation(jsonString);
 	}
-
 }

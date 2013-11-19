@@ -51,7 +51,6 @@ public class PrivateMessageDao {
 			throw re;
 		}
 	}
-	
 
 	@SuppressWarnings("null")
 	public List<PrivateMessage> getPrivateMessagesTo(User user)

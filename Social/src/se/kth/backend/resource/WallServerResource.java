@@ -93,5 +93,4 @@ public class WallServerResource extends ServerResource implements WallResource {
 		return new StringRepresentation(output, MediaType.TEXT_PLAIN);
 		
 	}
-
 }

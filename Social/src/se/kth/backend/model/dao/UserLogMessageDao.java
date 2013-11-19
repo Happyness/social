@@ -84,5 +84,4 @@ public class UserLogMessageDao {
 			throw re;
 		}
 	}
-
 }
