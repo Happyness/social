@@ -68,7 +68,7 @@ public class PrivateMessagesHandler implements Serializable
 		List<User> users = null;
 		
 		UserResource ur = ClientHandler.getObjectResource("/users", UserResource.class);
-    	users = ur.getUsers();
+//    	users = ur.getUsers();
 		
 		int id = -1;
 		if (tokenSession.getProfile() != null) {

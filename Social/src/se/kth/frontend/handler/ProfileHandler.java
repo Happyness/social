@@ -50,8 +50,8 @@ public class ProfileHandler extends ClientHandler implements Serializable
 		String id = map.get("id");
 		
 	    if(id != null) {
-			UserResource ur = ClientHandler.getObjectResource("/user/" + id, UserResource.class);
-	    	profile = ur.getProfile();
+//			UserResource ur = ClientHandler.getObjectResource("/user/" + id, UserResource.class);
+//	    	profile = ur.getProfile();
 	    } else if (tokenSession.getProfile() != null) {
 	    	profile = tokenSession.getProfile();
 	    }

@@ -1,5 +1,6 @@
 package se.kth.frontend.handler;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,18 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.hibernate.Transaction;
+import org.json.JSONException;
+import org.json.simple.JSONArray;
+import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.HibernateUtil;
+import se.kth.common.UserResource;
+import se.kth.common.WallResource;
 import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserLogMessage;
@@ -73,21 +83,50 @@ public class WallHandler implements Serializable
     
     public List<UserLogMessage> getMessagesByUser()
     {
-    	if (id > 0) {
-    		messagesByUser = new UserLogService().getMessagesByUser(id);
-    	} else if (tokenSession.getProfile() != null) {
-    		messagesByUser = new UserLogService().getMessagesByUser(tokenSession.getProfile().getUserProfileId());
-    	} else {
-    		messagesByUser = new ArrayList<UserLogMessage>();
-    	}
+    	String messages = null;
+    	Gson gson = new Gson();
+		
+		WallResource wr = ClientHandler.getObjectResource("/wall/" + getTokenSession().getProfile().getUserProfileId(), WallResource.class);
+		
+		try {
+			messages = wr.getUserLogMessages().getText();
+		} catch (IOException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+		}
+
+		List<UserLogMessage> ulmList = gson.fromJson(messages, new TypeToken<List<UserLogMessage>>() {}.getType());
+
+    	return ulmList;
     	
-    	return messagesByUser;
+//    	if (id > 0) {
+//    		messagesByUser = new UserLogService().getMessagesByUser(id);
+//    	} else if (tokenSession.getProfile() != null) {
+//    		messagesByUser = new UserLogService().getMessagesByUser(tokenSession.getProfile().getUserProfileId());
+//    	} else {
+//    		messagesByUser = new ArrayList<UserLogMessage>();
+//    	}
+//    	
+//    	return messagesByUser;
     }
 	
 	public void save()
 	{
-		UserLogService ulh = new UserLogService();
-		setResponse(ulh.createMessage(tokenSession.getProfile().getUserProfileId(), message));
+    	Gson gson = new Gson();
+
+    	String jsonString = gson.toJson(message);
+    	JsonRepresentation jsonRep = new JsonRepresentation(jsonString);
+    	System.out.println("Sending: " + jsonString);
+    	WallResource wr = ClientHandler.getObjectResource("/wall/" + getTokenSession().getProfile().getUserProfileId(), WallResource.class);
+		
+    	try {
+			wr.postUserLogMessage(jsonRep);
+		} catch (JSONException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		UserLogService ulh = new UserLogService();
+//		setResponse(ulh.createMessage(tokenSession.getProfile().getUserProfileId(), message));
 	}
 
 	public String getMessage() {

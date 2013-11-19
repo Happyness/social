@@ -15,41 +15,48 @@
 			<url>http://repository.primefaces.org</url>
 		</repository>
 		<repository>
-		   <id>maven-restlet</id>
-		   <name>Public online Restlet repository</name>
-		   <url>http://maven.restlet.org</url>
-		</repository> 
+			<id>maven-restlet</id>
+			<name>Public online Restlet repository</name>
+			<url>http://maven.restlet.org</url>
+		</repository>
 	</repositories>
 	<dependencies>
-	<!-- RESTLET -->
+		<!-- RESTLET -->
 		<dependency>
-		  <groupId>org.restlet.jee</groupId>
-		  <artifactId>org.restlet</artifactId>
-		  <version>2.1-M3</version>
+			<groupId>org.restlet.jee</groupId>
+			<artifactId>org.restlet</artifactId>
+			<version>2.1-M3</version>
 		</dependency>
 		<dependency>
-	      <groupId>org.restlet.jee</groupId>
-	      <artifactId>org.restlet.ext.jdbc</artifactId>
-	      <version>2.1-M3</version>
-	    </dependency>
+			<groupId>org.restlet.jee</groupId>
+			<artifactId>org.restlet.ext.jdbc</artifactId>
+			<version>2.1-M3</version>
+		</dependency>
 		<dependency>
-	      <groupId>org.restlet.jee</groupId>
-	      <artifactId>org.restlet.ext.servlet</artifactId>
-	      <version>2.1-M3</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.restlet.jee</groupId>
-	      <artifactId> org.restlet.ext.json</artifactId>
-	      <version>2.1-M3</version>
-	    </dependency>
-	    
-	    <!-- Serialize/Deserialize Json -->
-	    <dependency>
+			<groupId>org.restlet.jee</groupId>
+			<artifactId>org.restlet.ext.servlet</artifactId>
+			<version>2.1-M3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.restlet.jee</groupId>
+			<artifactId> org.restlet.ext.json</artifactId>
+			<version>2.1-M3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+
+		<!-- Serialize/Deserialize Json -->
+		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
 		</dependency>
-            
+
 
 		<!-- JSF -->
 		<dependency>

@@ -3,7 +3,7 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:c="http://java.sun.com/jstl/core">
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
    <ui:define name="title">Welcome</ui:define>
 
     <ui:define name="content">
@@ -12,7 +12,7 @@
     		Welcome #{profileHandler.firstName}
     		
     		<ul>
-    			<c:forEach items="#{userService.users}" var="item">
+    			<c:forEach items="#{userHandler.users}" var="item">
 				   	<li><h:link value="#{item.username}" outcome="/user/wall">
 				        <f:param name="id" value="#{item.userId}" />
 				    </h:link></li>

@@ -1,5 +1,6 @@
 package se.kth.frontend.handler.security;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +11,17 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.restlet.ext.json.JsonRepresentation;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import se.kth.backend.resource.SecurityUtils;
+import se.kth.common.AuthResource;
+import se.kth.common.WallResource;
+import se.kth.common.model.bo.User;
+import se.kth.frontend.handler.ClientHandler;
 import se.kth.frontend.handler.service.UserService;
 
 @ManagedBean
@@ -61,8 +72,17 @@ public class Authentication implements Serializable
 	
 	public String doLogin()
 	{
-		UserService uh = new UserService();
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.add(username);
+		jsonArray.add(password);
 		
+		String jsonString = gson.toJson(jsonArray);
+		
+		JsonRepresentation jsonRep = new JsonRepresentation(jsonString);
+		
+//		UserService uh = new UserService();
+//		
 		if (username.equals("admin") && password.equals("admin"))
 		{
 			response = "You are now logged in as admin";
@@ -72,19 +92,39 @@ public class Authentication implements Serializable
 			clearForm();
 			return "/index?faces-redirect=true";
 		}
-		
-		if (uh.login(username, password)) {
-			response = "Valid username and password";
-			tokenSession.setAuthorized(true);
-			tokenSession.setProfile(uh.getUser().getUserProfile());
-			tokenSession.setIsAdmin(false);
-			
-			clearForm();
-			return "/index?faces-redirect=true";
-		} else {
-			response = "Invalid credentials provided! " + username + " : " + SecurityUtils.getHash(password);
-			return "";
+		AuthResource ar = ClientHandler.getObjectResource("/login", AuthResource.class);
+		try {
+			JsonRepresentation returnRep = new JsonRepresentation(ar.login(jsonRep));
+			if (returnRep.getSize() >= 1) {
+				response = "Valid username and password";
+				tokenSession.setAuthorized(true);
+				User user = gson.fromJson(returnRep.getText(), User.class);
+				tokenSession.setProfile(user.getUserProfile());
+				tokenSession.setIsAdmin(false);
+				
+				clearForm();
+				return "/index?faces-redirect=true";
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+//		
+//		if (uh.login(username, password)) {
+//			response = "Valid username and password";
+//			tokenSession.setAuthorized(true);
+//			tokenSession.setProfile(uh.getUser().getUserProfile());
+//			tokenSession.setIsAdmin(false);
+//			
+//			clearForm();
+//			return "/index?faces-redirect=true";
+//		} else {
+//			response = "Invalid credentials provided! " + username + " : " + SecurityUtils.getHash(password);
+//			return "";
+//		}
+
+		response = "Invalid credentials provided! " + username + " : " + SecurityUtils.getHash(password);
+		return "";
 	}
 	
 	public void clearForm()
