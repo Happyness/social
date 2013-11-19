@@ -210,9 +210,7 @@ public class UserHandler implements Serializable
 	{
 		UsersResource ur = ClientHandler.getObjectResource("/users", UsersResource.class);
 		JsonRepresentation jsonRep = new JsonRepresentation(ur.getUsers());
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		
-		List<User> users = gson.fromJson(jsonRep.getText(), new TypeToken<List<User>>() {}.getType());
+		List<User> users = Converter.fromJsonToList(jsonRep.getText(), new TypeToken<List<User>>() {}.getType());
 		
 		return users;
 	}

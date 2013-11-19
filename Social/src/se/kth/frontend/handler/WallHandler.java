@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.HibernateUtil;
+import se.kth.common.Converter;
 import se.kth.common.UserResource;
 import se.kth.common.WallResource;
 import se.kth.common.model.bo.PrivateMessage;
@@ -83,20 +84,27 @@ public class WallHandler implements Serializable
     
     public List<UserLogMessage> getMessagesByUser()
     {
-    	String messages = null;
-    	Gson gson = new Gson();
+    	int id = -1;
+    	List<UserLogMessage> ulmList = new ArrayList<UserLogMessage>();
+    	
+    	if (getTokenSession().getProfile() != null) {
+    		id = getTokenSession().getProfile().getUserProfileId();
+    	}
 		
-		WallResource wr = ClientHandler.getObjectResource("/wall/" + getTokenSession().getProfile().getUserProfileId(), WallResource.class);
-		
-		try {
-			messages = wr.getUserLogMessages().getText();
-		} catch (IOException e) {
-			System.out.println(e.toString());
-			e.printStackTrace();
-		}
-
-		List<UserLogMessage> ulmList = gson.fromJson(messages, new TypeToken<List<UserLogMessage>>() {}.getType());
-
+    	if (id > 0) {
+    		String messages = null;
+			WallResource wr = ClientHandler.getObjectResource("/wall/" + id, WallResource.class);
+			
+			try {
+				messages = wr.getUserLogMessages().getText();
+			} catch (IOException e) {
+				System.out.println(e.toString());
+				e.printStackTrace();
+			}
+	
+			ulmList = Converter.fromJsonToList(messages, new TypeToken<List<UserLogMessage>>() {}.getType());
+	    }
+    	
     	return ulmList;
     	
 //    	if (id > 0) {
