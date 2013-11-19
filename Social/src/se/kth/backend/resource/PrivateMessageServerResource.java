@@ -48,20 +48,6 @@ public class PrivateMessageServerResource extends ServerResource implements
 	}
 
 	@Override
-	public List<PrivateMessage> getMessages() {
-		System.out.println("DEBUG: PrivateMessageServerResource.getMessages()");
-		Transaction trans = HibernateUtil.getSessionFactory()
-				.getCurrentSession().beginTransaction();
-		List<PrivateMessage> messages = new PrivateMessageDao()
-				.getPrivateMessages();
-		trans.commit();
-
-		System.out.println("test");
-
-		return messages;
-	}
-
-	@Override
 	public Representation sendMessage(Representation entity) {
 		System.out.println("DEBUG: PrivateMessageServerResource.sendMessage()");
 		Form form = new Form(entity);

@@ -12,9 +12,6 @@ public interface PrivateMessageResource
 {
     @Get
     public PrivateMessage getMessage();
-
-	@Get
-	public List<PrivateMessage> getMessages();
 	
 	@Post
 	public Representation sendMessage(Representation entity);

@@ -18,6 +18,7 @@ public class SocialApplication extends Application
         Router router = new Router(getContext());
         router.attach("/users", UsersServerResource.class);
         router.attach("/user/{userid}", UserServerResource.class);
+        router.attach("/user/store", UserServerResource.class);
         router.attach("/messages/{userid}", PrivateMessageServerResource.class);
         router.attach("/message/{userid}", PrivateMessageServerResource.class);
         router.attach("/wall/{userid}", WallServerResource.class);

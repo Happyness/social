@@ -6,34 +6,34 @@
    <ui:define name="title">Create new user account</ui:define>
 
     <ui:define name="content">
-    	<h:outputText value="#{createUserHandler.response}" />
+    	<h:outputText value="#{userHandler.response}" />
     	<h:form>
 	    <h:panelGrid columns="2">
 	        <h:outputLabel for="username">Username:</h:outputLabel>
-	        <h:inputText id="username" required="true" value="#{createUserHandler.username}"/>
+	        <h:inputText id="username" required="true" value="#{userHandler.username}"/>
 	        <h:outputLabel for="password">Password:</h:outputLabel>
-	        <h:inputText id="password" required="true"  value="#{createUserHandler.password}" />
+	        <h:inputText id="password" required="true"  value="#{userHandler.password}" />
 	        <h:outputLabel for="name">Name:</h:outputLabel>
-	        <h:inputText id="name" required="true"  value="#{createUserHandler.name}" />
+	        <h:inputText id="name" required="true"  value="#{userHandler.name}" />
 	        <h:outputLabel for="surname">Surname:</h:outputLabel>
-	        <h:inputText id="surname" required="true" value="#{createUserHandler.surname}" />
+	        <h:inputText id="surname" required="true" value="#{userHandler.surname}" />
 	        <h:outputLabel for="email">Email:</h:outputLabel>
-	        <h:inputText id="email" required="true" value="#{createUserHandler.email}" />
+	        <h:inputText id="email" required="true" value="#{userHandler.email}" />
 	        <h:outputLabel>Date of birth:</h:outputLabel>
-			<h:selectOneMenu value="#{createUserHandler.dobYearSelect}">
-			   	<f:selectItems value="#{createUserHandler.dobYear}" var="c"
+			<h:selectOneMenu value="#{userHandler.dobYearSelect}">
+			   	<f:selectItems value="#{userHandler.dobYear}" var="c"
 			   	itemLabel="#{c.label}" itemValue="#{c.value}" />
 			</h:selectOneMenu>
-			<h:selectOneMenu value="#{createUserHandler.dobMonthSelect}">
-			   	<f:selectItems value="#{createUserHandler.dobMonth}" var="c"
+			<h:selectOneMenu value="#{userHandler.dobMonthSelect}">
+			   	<f:selectItems value="#{userHandler.dobMonth}" var="c"
 			   	itemLabel="#{c.label}" itemValue="#{c.value}" />
 			</h:selectOneMenu>
-			<h:selectOneMenu value="#{createUserHandler.dobDaySelect}">
-			   	<f:selectItems value="#{createUserHandler.dobDay}" var="c"
+			<h:selectOneMenu value="#{userHandler.dobDaySelect}">
+			   	<f:selectItems value="#{userHandler.dobDay}" var="c"
 			   	itemLabel="#{c.label}" itemValue="#{c.value}" />
 			</h:selectOneMenu>
 	    </h:panelGrid>
-    	   <h:commandButton value="Create user account" action="#{createUserHandler.save}"></h:commandButton>
+    	   <h:commandButton value="Create user account" action="#{userHandler.save}"></h:commandButton>
     	</h:form>
     </ui:define>
 </ui:composition>
