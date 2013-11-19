@@ -9,7 +9,7 @@ import se.kth.common.model.bo.User;
 public interface UserResource
 {
     @Get
-    public User getUser();
+    public Representation getUser();
 
     @Post
     public Representation createUser(Representation entity);

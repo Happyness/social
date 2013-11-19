@@ -12,9 +12,13 @@ import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import com.google.gson.Gson;
+
+import se.kth.backend.model.dao.PrivateMessageDao;
 import se.kth.backend.model.dao.UserDao;
 import se.kth.common.Converter;
 import se.kth.common.UserResource;
+import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserProfile;
 
@@ -30,21 +34,23 @@ public class UserServerResource extends ServerResource implements UserResource
     }
 	
     @Override
-    public User getUser()
+    public Representation getUser()
     {
-    	System.out.println("DEBUG: UserServerResource.getUser()");
-    	User user = null;
-    	
-    	if (id != null) {
-	    	Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-	    	user = new UserDao().getUser(Integer.parseInt(id));
-	    	trans.commit();
-    	}
-    	
-    	if (user instanceof User)
-    		return user;
-    	
-        return new User();
+    	System.out.println("DEBUG: PrivateMessageServerResource.getMessage()");
+		User user = null;
+
+		if (id != null) {
+			Transaction trans = HibernateUtil.getSessionFactory()
+					.getCurrentSession().beginTransaction();
+			user = new UserDao().getUser(Integer
+					.parseInt(id));
+			trans.commit();
+		}
+		
+		String jsonString = Converter.toJson(user);
+		Representation jsonRep = new JsonRepresentation(jsonString);
+
+		return jsonRep;
     }
 
 	@Override

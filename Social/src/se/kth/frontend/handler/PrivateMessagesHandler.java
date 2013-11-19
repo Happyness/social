@@ -14,6 +14,7 @@ import org.restlet.representation.Representation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import se.kth.common.Converter;
@@ -67,11 +68,11 @@ public class PrivateMessagesHandler implements Serializable
     		//messagesToUser = new PrivateMessageService().getMessagesToUser();
     		//response += tokenSession.getProfile().getUserProfileId();
     	} else {
-    		messagesToUser = new ArrayList<PrivateMessage>();
-			Representation jsonRep = new JsonRepresentation(ur.getMessages());
-			messages = gson.fromJson(jsonRep.getText(), new TypeToken<List<PrivateMessage>>() {}.getType());
-			
-			return messages;
+//    		messagesToUser = new ArrayList<PrivateMessage>();
+//			Representation jsonRep = new JsonRepresentation(ur.getMessages());
+//			messages = gson.fromJson(jsonRep.getText(), new TypeToken<List<PrivateMessage>>() {}.getType());
+//			
+//			return messages;
     	}
     	List<PrivateMessage> emptyList = new ArrayList<PrivateMessage>();
 		return emptyList;
@@ -106,10 +107,33 @@ public class PrivateMessagesHandler implements Serializable
 		return toUser;
 	}
 	
-	public String save()
+	public String save() throws JsonSyntaxException, IOException
 	{
+
+		UserResource urf = ClientHandler.getObjectResource("/user/" + getTokenSession().getProfile().getUserProfileId(), UserResource.class);
+		Representation fromUserRep = new JsonRepresentation(urf.getUser());
+		User fromUser = Converter.fromJson(fromUserRep.getText(), User.class);
 		
-		return ClientHandler.server + "/message/" + toUserSelect;
+		UserResource urt = ClientHandler.getObjectResource("/user/" + Integer.parseInt(toUserSelect), UserResource.class);
+		Representation toUserRep = new JsonRepresentation(urt.getUser());
+		User toUser = Converter.fromJson(toUserRep.getText(), User.class);
+
+		PrivateMessage pm = new PrivateMessage();
+		pm.setFromUser(fromUser);
+		pm.setToUser(toUser);
+		pm.setMessage(message);
+		
+		String jsonString = Converter.toJson(pm);
+		
+		PrivateMessageResource pmr = ClientHandler.getObjectResource("/message/" + getTokenSession().getProfile().getUserProfileId(), PrivateMessageResource.class);
+		
+		Representation jsonRep = new JsonRepresentation(jsonString);
+		
+		pmr.sendMessage(jsonRep);
+		
+		return "";
+		
+		//return ClientHandler.server + "/message/" + toUserSelect;
 		//PrivateMessageResource pmr = ClientHandler.getObjectResource("/message/" + toUserSelect,
 		//		PrivateMessageResource.class);
     	//pmr.sendMessage(new Representation(""));
