@@ -174,17 +174,6 @@ public class UserHandler implements Serializable
 		
     	String jsonString = Converter.toJson(user);
     	JsonRepresentation jsonRep = new JsonRepresentation(jsonString);
-    	
-    	/*
-		Form form = new Form();
-		form.add("username", username);
-		form.add("password", password);
-		form.add("name", name);
-		form.add("surname", surname);
-		form.add("email", email);
-		form.add("dobYearSelect", dobYearSelect);
-		form.add("dobMonthSelect", dobMonthSelect);
-		form.add("dobDaySelect", dobDaySelect);*/
 		
 		UserResource ur = ClientHandler.getObjectResource("/user/store", UserResource.class);
 		try {
@@ -193,17 +182,6 @@ public class UserHandler implements Serializable
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//return ClientHandler.server + "/user/store";
-		/*UserService uh = new UserService();
-		UserProfile up = new UserProfile();   
-		up.setFirstName(name);
-		up.setSurname(surname);
-		up.setEmail(email);
-		
-		String dobio = dobYearSelect + "-" + dobMonthSelect + "-" + dobDaySelect;
-		up.setDateOfBirth(java.sql.Date.valueOf(dobio));
-		
-		response = uh.createUser(username, password, up);*/
 	}
 	
 	public List<User> getUsers() throws IOException

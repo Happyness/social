@@ -24,6 +24,7 @@ import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.HibernateUtil;
 import se.kth.common.Converter;
 import se.kth.common.UserResource;
+import se.kth.common.UsersResource;
 import se.kth.common.WallResource;
 import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
@@ -42,7 +43,7 @@ public class WallHandler implements Serializable
 	private String message;
 	private String response;
 	private List<UserLogMessage> messagesByUser;
-	private int id;
+	private int id = -1;
 	
     @ManagedProperty(value = "#{tokenSession}")
     private TokenSession tokenSession;
@@ -84,45 +85,25 @@ public class WallHandler implements Serializable
     
     public List<UserLogMessage> getMessagesByUser()
     {
-    	int id = -1;
-    	List<UserLogMessage> ulmList = new ArrayList<UserLogMessage>();
-    	
-    	if (getTokenSession().getProfile() != null) {
-    		id = getTokenSession().getProfile().getUserProfileId();
-    	}
+    	List<UserLogMessage> messages = new ArrayList<UserLogMessage>();
 		
-    	if (id > 0) {
-    		String messages = null;
-			WallResource wr = ClientHandler.getObjectResource("/wall/" + id, WallResource.class);
-			
+    	if (this.id > 0) {
+    		WallResource wr = ClientHandler.getObjectResource("/wall/" + this.id, WallResource.class);
+    		JsonRepresentation jsonRep;
 			try {
-				messages = wr.getUserLogMessages().getText();
-			} catch (IOException e) {
-				System.out.println(e.toString());
-				e.printStackTrace();
+				jsonRep = new JsonRepresentation(wr.getUserLogMessages());
+				messages = Converter.fromJsonToList(jsonRep.getText(), new TypeToken<List<User>>() {}.getType());
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-	
-			ulmList = Converter.fromJsonToList(messages, new TypeToken<List<UserLogMessage>>() {}.getType());
-	    }
+    	}
     	
-    	return ulmList;
-    	
-//    	if (id > 0) {
-//    		messagesByUser = new UserLogService().getMessagesByUser(id);
-//    	} else if (tokenSession.getProfile() != null) {
-//    		messagesByUser = new UserLogService().getMessagesByUser(tokenSession.getProfile().getUserProfileId());
-//    	} else {
-//    		messagesByUser = new ArrayList<UserLogMessage>();
-//    	}
-//    	
-//    	return messagesByUser;
+    	return messages;
     }
 	
 	public void save()
 	{
-    	Gson gson = new Gson();
-
-    	String jsonString = gson.toJson(message);
+    	String jsonString = Converter.toJson(message);
     	JsonRepresentation jsonRep = new JsonRepresentation(jsonString);
     	System.out.println("Sending: " + jsonString);
     	WallResource wr = ClientHandler.getObjectResource("/wall/" + getTokenSession().getProfile().getUserProfileId(), WallResource.class);
@@ -130,11 +111,8 @@ public class WallHandler implements Serializable
     	try {
 			setResponse(wr.postUserLogMessage(jsonRep).getText());
 		} catch (JSONException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		UserLogService ulh = new UserLogService();
-//		setResponse(ulh.createMessage(tokenSession.getProfile().getUserProfileId(), message));
 	}
 
 	public String getMessage() {

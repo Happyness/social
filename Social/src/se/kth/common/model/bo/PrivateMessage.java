@@ -19,6 +19,7 @@ public class PrivateMessage implements java.io.Serializable {
 	private User fromUser;
 	@Expose
 	private String message;
+	@Expose
 	private Date messageSent;
 
 	public PrivateMessage() {

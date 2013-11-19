@@ -20,66 +20,60 @@ import com.google.gson.GsonBuilder;
 
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.model.dao.UserLogMessageDao;
+import se.kth.common.Converter;
 import se.kth.common.WallResource;
 import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserLogMessage;
 
 public class WallServerResource extends ServerResource implements WallResource {
 	
-	String id;
+	int id = -1;
 	UserLogMessageDao ulmd;
 	UserDao ud;
 	
 	@Override
-    public void doInit() throws ResourceException {
+    public void doInit() throws ResourceException
+    {
 		System.out.println("DEBUG: WallServerResource.doInit()");
-        this.id = (String) getRequestAttributes().get("userid");
+        String data = (String) getRequestAttributes().get("userid");
+        if (data != null) {
+        	this.id = Integer.parseInt(data);
+        }
         ulmd = new UserLogMessageDao();
         ud = new UserDao();
     }
 
 	@Override
-	@Get
 	public Representation getUserLogMessages() {
-		System.out.println("DEBUG: WallServerResource.getUserLogMessages()");
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		List<UserLogMessage> messages = null;
-		String jsonString = "";
+		System.out.println("DEBUG: WallServerResource.getUserLogMessages() with <userid> : " + id);
     	
-    	if (id != null) {
+    	if (id > 0) {
 	    	Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-    		messages  = ulmd.getUserLogMessagesFrom(ud.getUser(Integer.parseInt(id)));
+	    	User user = new UserDao().getUser(id);
+	    	List<UserLogMessage> messages  = ulmd.getUserLogMessagesFrom(user);
 	    	trans.commit();
+	    	
+	    	String jsonString = Converter.toJson(messages);
+	    	System.out.println(jsonString);
+	    	return new JsonRepresentation(jsonString);
     	}
     	
-    	if (messages == null) {
-    		return new EmptyRepresentation();
-    	}
-    	
-    	
-    	jsonString = gson.toJson(messages);
-    	
-    	System.out.println(jsonString);
-
-		Representation rep = new JsonRepresentation(jsonString);
-        return rep;
+    	return new EmptyRepresentation();
 	}
 
 	@Override
-	@Post
 	public Representation postUserLogMessage(Representation entity) throws JSONException, IOException {
 
 		JsonRepresentation jsonRep = new JsonRepresentation(entity);
-		Gson gson = new Gson();
 		
 		String output = "";
-		String msg = gson.fromJson(jsonRep.getText(), String.class);
-		if (id != null) {
+		String msg = Converter.fromJson(jsonRep.getText(), String.class);
+		if (id > 0) {
 			Transaction tx = null;
 			
 			try {
 				tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-				User user = ud.getUser(Integer.parseInt(id));
+				User user = ud.getUser(id);
 				UserLogMessage ulm = new UserLogMessage();
 				ulm.setMessage(msg);
 				ulm.setUser(user);

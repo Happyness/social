@@ -43,20 +43,14 @@ public class UserLogMessageDao {
 		}
 	}
 	
-	@SuppressWarnings("null")
 	public List<UserLogMessage> getUserLogMessagesFrom(User user) {
 		try {
-			@SuppressWarnings("unchecked")
+			User u = new User();
+			u.setUserId(user.getUserId());
+			
 			Session session = sessionFactory.getCurrentSession();
-			List<UserLogMessage> results = (List<UserLogMessage>) session.createCriteria(UserLogMessage.class)
-			.add(Restrictions.eq("user", user)).list();
-
-			if (results.size() == 0) {
-				return null;
-			} 
-			else {
-				return results;
-			}
+			return (List<UserLogMessage>) session.createCriteria(UserLogMessage.class)
+			.add(Restrictions.eq("user", u)).list();
 		} catch (RuntimeException re) {
 			throw re;
 		}

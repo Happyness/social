@@ -26,17 +26,15 @@ public class UsersServerResource extends ServerResource implements UsersResource
     }
 	
 	@Override
-	public Representation getUsers() {
+	public Representation getUsers()
+	{
 		System.out.println("DEBUG: UsersServerResource.getUsers()");
 		Transaction trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
     	List<User> users = new UserDao().getUsers();
     	trans.commit();
     	
-    	//Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     	String jsonString = Converter.toJson(users);
-    	Representation jsonRep = new JsonRepresentation(jsonString);
-    	
-    	return jsonRep;
+    	return new JsonRepresentation(jsonString);
 	}
 
 }

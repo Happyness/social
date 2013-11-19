@@ -9,8 +9,8 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 
 
-public interface WallResource {
-
+public interface WallResource
+{
 	@Get
     public Representation getUserLogMessages();
 	

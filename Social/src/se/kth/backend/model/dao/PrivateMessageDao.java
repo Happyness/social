@@ -42,19 +42,11 @@ public class PrivateMessageDao {
 	}
 	
 
-	@SuppressWarnings("null")
 	public List<PrivateMessage> getPrivateMessagesFrom(User user) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			List<PrivateMessage> results = (List<PrivateMessage>) session.createCriteria(PrivateMessage.class)
+			return (List<PrivateMessage>) session.createCriteria(PrivateMessage.class)
 					.add(Restrictions.eq("fromUser", user)).list();
-			
-			if (results.size() == 0) {
-				return null;
-			} 
-			else {
-				return results;
-			}
 		} catch (RuntimeException re) {
 			throw re;
 		}
@@ -67,14 +59,8 @@ public class PrivateMessageDao {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			
-			List<PrivateMessage> results = (List<PrivateMessage>) session.createCriteria(PrivateMessage.class)
+			return (List<PrivateMessage>) session.createCriteria(PrivateMessage.class)
 					.add(Restrictions.eq("toUser", user)).list();
-			if (results.size() == 0) {
-				return null;
-			}
-			else {
-				return results;
-			}
 		} catch (RuntimeException re) {
 			throw re;
 		}
