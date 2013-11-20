@@ -21,6 +21,7 @@ public class UserProfile implements java.io.Serializable {
 	private String surname;
 	@Expose
 	private String email;
+	@Expose
 	private Date dateOfBirth;
 
 	public UserProfile() {

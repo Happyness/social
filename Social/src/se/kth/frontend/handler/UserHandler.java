@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -150,7 +151,7 @@ public class UserHandler implements Serializable
 		this.email = email;
 	}
 	
-	public void save()
+	public void save() throws ParseException
 	{
 		UserProfile up = new UserProfile();   
 		up.setFirstName(name);
@@ -158,7 +159,8 @@ public class UserHandler implements Serializable
 		up.setEmail(email);
 		
 		String dobio = dobYearSelect + "-" + dobMonthSelect + "-" + dobDaySelect;
-		up.setDateOfBirth(java.sql.Date.valueOf(dobio));
+		Date birthDate = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss.SSSSSS").parse(dobio + " 00:00:00.000000");
+		up.setDateOfBirth(birthDate);
 	  
 		User user = new User();
 		user.setUsername(username);

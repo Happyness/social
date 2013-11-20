@@ -2,6 +2,7 @@ package se.kth.frontend.handler;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -29,7 +30,7 @@ public class ProfileHandler extends ClientHandler implements Serializable
 	private String firstName;
 	private String surName;
 	private String email;
-	private String dob;
+	private Date dob;
 	
     @ManagedProperty(value = "#{tokenSession}")
     private TokenSession tokenSession;
@@ -68,7 +69,7 @@ public class ProfileHandler extends ClientHandler implements Serializable
     	setEmail(profile.getEmail());
     	
     	if (profile.getDateOfBirth() != null)
-    		setDob(profile.getDateOfBirth().toString());
+    		setDob(profile.getDateOfBirth());
     	
     	return "";
 	}
@@ -101,11 +102,11 @@ public class ProfileHandler extends ClientHandler implements Serializable
 		this.email = email;
 	}
 
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(String dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 }
