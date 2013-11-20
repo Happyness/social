@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 
 import se.kth.backend.model.dao.PrivateMessageDao;
 import se.kth.backend.model.dao.UserDao;
+import se.kth.common.Converter;
 import se.kth.common.PrivateMessageResource;
 import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
@@ -33,10 +34,8 @@ public class PrivateMessageServerResource extends ServerResource implements
 	}
 
 	@Override
-	@Get
 	public Representation getMessage() {
 		System.out.println("DEBUG: PrivateMessageServerResource.getMessage()");
-		Gson gson = new Gson();
 		PrivateMessage pm = null;
 
 		if (id != null) {
@@ -46,19 +45,18 @@ public class PrivateMessageServerResource extends ServerResource implements
 					.parseInt(id));
 			trans.commit();
 		}
-		String jsonString = gson.toJson(pm);
+		String jsonString = Converter.toJson(pm);
 		Representation jsonRep = new JsonRepresentation(jsonString);
 
 		return jsonRep;
 	}
 
 	@Override
-	@Post
-	public Representation sendMessage(Representation entity) throws IOException {
+	public Representation sendMessage(Representation entity) throws IOException
+	{
 		System.out.println("DEBUG: PrivateMessageServerResource.sendMessage()");
 		Representation jsonRep = new JsonRepresentation(entity);
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		PrivateMessage pm = gson.fromJson(jsonRep.getText(), PrivateMessage.class);
+		PrivateMessage pm = Converter.fromJson(jsonRep.getText(), PrivateMessage.class);
 		
 		String output = "";
 

@@ -20,8 +20,9 @@ public class User implements java.io.Serializable {
 	@Expose
 	private Integer userId;
 	@Expose
-	private String username;
+	public String username;
 	private String password;
+	@Expose
 	private Date userAdded;
 	@Expose
 	private UserProfile userProfile;

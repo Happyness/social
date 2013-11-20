@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 
 import se.kth.backend.resource.SecurityUtils;
 import se.kth.common.AuthResource;
+import se.kth.common.Converter;
 import se.kth.common.WallResource;
 import se.kth.common.model.bo.User;
 import se.kth.frontend.handler.ClientHandler;
@@ -72,13 +73,11 @@ public class Authentication implements Serializable
 	
 	public String doLogin()
 	{
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.add(username);
 		jsonArray.add(password);
 		
-		String jsonString = gson.toJson(jsonArray);
-		
+		String jsonString = Converter.toJson(jsonArray);
 		JsonRepresentation jsonRep = new JsonRepresentation(jsonString);
 		
 //		UserService uh = new UserService();
@@ -98,7 +97,7 @@ public class Authentication implements Serializable
 			if (returnRep.getSize() >= 1) {
 				response = "Valid username and password";
 				tokenSession.setAuthorized(true);
-				User user = gson.fromJson(returnRep.getText(), User.class);
+				User user = Converter.fromJson(returnRep.getText(), User.class);
 				tokenSession.setProfile(user.getUserProfile());
 				tokenSession.setIsAdmin(false);
 				
@@ -109,21 +108,8 @@ public class Authentication implements Serializable
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		
-//		if (uh.login(username, password)) {
-//			response = "Valid username and password";
-//			tokenSession.setAuthorized(true);
-//			tokenSession.setProfile(uh.getUser().getUserProfile());
-//			tokenSession.setIsAdmin(false);
-//			
-//			clearForm();
-//			return "/index?faces-redirect=true";
-//		} else {
-//			response = "Invalid credentials provided! " + username + " : " + SecurityUtils.getHash(password);
-//			return "";
-//		}
 
-		response = "Invalid credentials provided! " + username + " : " + SecurityUtils.getHash(password);
+		response = "Invalid credentials provided!";
 		return "";
 	}
 	
@@ -136,6 +122,8 @@ public class Authentication implements Serializable
 	  public String doLogout()
 	  {
 		  	response = "";
+		  	tokenSession.setIsAdmin(false);
+		  	tokenSession.setProfile(null);
 		    tokenSession.setAuthorized(false);
 		    return "/index";
 	  }

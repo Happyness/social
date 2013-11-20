@@ -17,6 +17,7 @@ import com.google.gson.GsonBuilder;
 
 import se.kth.backend.model.dao.UserDao;
 import se.kth.common.AuthResource;
+import se.kth.common.Converter;
 import se.kth.common.model.bo.User;
 
 public class AuthServerResource extends ServerResource implements AuthResource {
@@ -30,12 +31,11 @@ public class AuthServerResource extends ServerResource implements AuthResource {
     }
 	
 	@Override
-	@Post
-	public Representation login(Representation entity) throws IOException {
+	public Representation login(Representation entity) throws IOException
+	{
 		JsonRepresentation jsonRep = new JsonRepresentation(entity);
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		
-		JSONArray jsonArray = gson.fromJson(jsonRep.getText(), JSONArray.class);
+		JSONArray jsonArray = Converter.fromJson(jsonRep.getText(), JSONArray.class);
 		
 		User tmp = new User();
 		tmp.setUsername((String) jsonArray.get(0));
@@ -51,9 +51,8 @@ public class AuthServerResource extends ServerResource implements AuthResource {
 		
 			// Funkar inte med Hibernate att skicka med password, den lyckas inte matcha SHA256 av någon anledning
 			if (user != null && user.getPassword().equals(SecurityUtils.getHash((String) jsonArray.get(1)))) {
-				String jsonString = gson.toJson(user);
-				Representation returnRep = new JsonRepresentation(jsonString);
-				return returnRep;
+				String jsonString = Converter.toJson(user);
+				return new JsonRepresentation(jsonString);
 			} else {
 				return new EmptyRepresentation();
 			}

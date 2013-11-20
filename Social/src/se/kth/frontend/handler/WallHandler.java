@@ -42,7 +42,6 @@ public class WallHandler implements Serializable
 	
 	private String message;
 	private String response;
-	private List<UserLogMessage> messagesByUser;
 	private int id = -1;
 	
     @ManagedProperty(value = "#{tokenSession}")
@@ -88,14 +87,16 @@ public class WallHandler implements Serializable
     	List<UserLogMessage> messages = new ArrayList<UserLogMessage>();
 		
     	if (this.id > 0) {
-    		WallResource wr = ClientHandler.getObjectResource("/wall/" + this.id, WallResource.class);
+    		Representation wr = ClientHandler.getNormalResource("/wall/" + this.id);
     		JsonRepresentation jsonRep;
 			try {
-				jsonRep = new JsonRepresentation(wr.getUserLogMessages());
-				messages = Converter.fromJsonToList(jsonRep.getText(), new TypeToken<List<User>>() {}.getType());
+				jsonRep = new JsonRepresentation(wr);
+				messages = Converter.fromJsonToList(jsonRep.getText(), new TypeToken<List<UserLogMessage>>() {}.getType());
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+			
+			ClientHandler.releaseResource(wr);
     	}
     	
     	return messages;
@@ -113,6 +114,8 @@ public class WallHandler implements Serializable
 		} catch (JSONException | IOException e) {
 			e.printStackTrace();
 		}
+    	
+    	ClientHandler.releaseResource(jsonRep);
 	}
 
 	public String getMessage() {

@@ -55,47 +55,17 @@ public class UserServerResource extends ServerResource implements UserResource
 
 	@Override
 	public Representation createUser(Representation entity)
-	{
-		/*
-		  Form form = new Form(entity);
-		  String name = form.getFirstValue("name");
-		  String surname = form.getFirstValue("surname");
-		  String email = form.getFirstValue("email");
-		  String username = form.getFirstValue("username");
-		  String password = form.getFirstValue("password");
-		  String dobYearSelect = form.getFirstValue("dobYearSelect");
-		  String dobMonthSelect = form.getFirstValue("dobMonthSelect");
-		  String dobDaySelect = form.getFirstValue("dobDaySelect");
-		  String output = "";
-		  
-			UserProfile up = new UserProfile();   
-			up.setFirstName(name);
-			up.setSurname(surname);
-			up.setEmail(email);
-			
-			String dobio = dobYearSelect + "-" + dobMonthSelect + "-" + dobDaySelect;
-			up.setDateOfBirth(java.sql.Date.valueOf(dobio));
-		  
-			UserDao userDao = new UserDao();
-			User tmp = new User();
-			tmp.setUsername(username);*/
-			
+	{		
 			String output = "";
 			Transaction trans = null;
 			UserDao userDao = new UserDao();
-			JsonRepresentation jsonRep;
-			User user = new User();
 			
 			try {
-				jsonRep = new JsonRepresentation(entity);
-				user = Converter.fromJson(jsonRep.getText(), User.class);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			User tmp = new User();
-			tmp.setUsername(user.getUsername());
-			
-			try {
+				JsonRepresentation jsonRep = new JsonRepresentation(entity);
+				User user = Converter.fromJson(jsonRep.getText(), User.class);
+				User tmp = new User();
+				tmp.setUsername(user.getUsername());
+				
 				trans = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 				User tmp2 = userDao.getUser(tmp);
 				
@@ -107,6 +77,8 @@ public class UserServerResource extends ServerResource implements UserResource
 					trans.commit();
 					output = "User does already exist in database.";
 				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			} catch (RuntimeException e) {
 				 HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().rollback();
 				 output = "User creation failed: " + e.getMessage();

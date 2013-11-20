@@ -98,9 +98,8 @@ public class PrivateMessagesHandler implements Serializable
 		return toUser;
 	}
 	
-	public String save() throws JsonSyntaxException, IOException
+	public void save() throws JsonSyntaxException, IOException
 	{
-
 		UserResource urf = ClientHandler.getObjectResource("/user/" + getTokenSession().getProfile().getUserProfileId(), UserResource.class);
 		Representation fromUserRep = new JsonRepresentation(urf.getUser());
 		User fromUser = Converter.fromJson(fromUserRep.getText(), User.class);
@@ -117,27 +116,8 @@ public class PrivateMessagesHandler implements Serializable
 		String jsonString = Converter.toJson(pm);
 		
 		PrivateMessageResource pmr = ClientHandler.getObjectResource("/message/" + getTokenSession().getProfile().getUserProfileId(), PrivateMessageResource.class);
-		
 		Representation jsonRep = new JsonRepresentation(jsonString);
-		
-		pmr.sendMessage(jsonRep);
-		
-		return "";
-		
-		//return ClientHandler.server + "/message/" + toUserSelect;
-		//PrivateMessageResource pmr = ClientHandler.getObjectResource("/message/" + toUserSelect,
-		//		PrivateMessageResource.class);
-    	//pmr.sendMessage(new Representation(""));
-    	
-		/*
-		PrivateMessageService pmh = new PrivateMessageService();
-		UserProfile profile = tokenSession.getProfile();
-		
-		if (profile != null) {
-			setResponse(pmh.createMessage(Integer.parseInt(toUserSelect), profile.getUserProfileId(), message));
-		} else {
-			setResponse("No profile available");
-		}*/
+		response = pmr.sendMessage(jsonRep).getText();
 	}
 
 	public String getTo_id()

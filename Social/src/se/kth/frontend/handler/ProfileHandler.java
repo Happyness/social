@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.hibernate.Transaction;
+import org.restlet.ext.json.JsonRepresentation;
 
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.HibernateUtil;
@@ -55,7 +56,8 @@ public class ProfileHandler extends ClientHandler implements Serializable
 	    if(id != null) {
 			ProfileResource ur = ClientHandler.getObjectResource("/user/profile/" + id, ProfileResource.class);
 	    	try {
-				profile = Converter.fromJson(ur.getProfile().getText(), UserProfile.class);
+	    		JsonRepresentation jsonRep = new JsonRepresentation(ur.getProfile()); 
+				profile = Converter.fromJson(jsonRep.getText(), UserProfile.class);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
