@@ -1,8 +1,6 @@
 package se.kth.common;
 
-import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
@@ -14,7 +12,6 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonSerializer;
-import com.google.gson.reflect.TypeToken;
 
 public class Converter
 {

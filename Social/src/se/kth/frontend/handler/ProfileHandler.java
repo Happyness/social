@@ -9,15 +9,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import org.hibernate.Transaction;
-
-import se.kth.backend.model.dao.UserDao;
-import se.kth.backend.resource.HibernateUtil;
-import se.kth.backend.resource.UserServerResource;
 import se.kth.common.Converter;
 import se.kth.common.ProfileResource;
-import se.kth.common.UserResource;
-import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.security.TokenSession;
 

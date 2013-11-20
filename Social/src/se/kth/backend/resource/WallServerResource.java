@@ -10,13 +10,9 @@ import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.EmptyRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
-import org.restlet.resource.Get;
-import org.restlet.resource.Post;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.model.dao.UserLogMessageDao;

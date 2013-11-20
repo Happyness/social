@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.hibernate.Transaction;
 import org.json.simple.JSONArray;
-import org.restlet.data.Form;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.EmptyRepresentation;
 import org.restlet.representation.Representation;

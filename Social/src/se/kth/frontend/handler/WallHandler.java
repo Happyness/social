@@ -11,28 +11,16 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import org.hibernate.Transaction;
 import org.json.JSONException;
-import org.json.simple.JSONArray;
 import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.Representation;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import se.kth.backend.model.dao.UserDao;
-import se.kth.backend.resource.HibernateUtil;
 import se.kth.common.Converter;
-import se.kth.common.UserResource;
-import se.kth.common.UsersResource;
 import se.kth.common.WallResource;
-import se.kth.common.model.bo.PrivateMessage;
-import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserLogMessage;
 import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.security.TokenSession;
-import se.kth.frontend.handler.service.PrivateMessageService;
-import se.kth.frontend.handler.service.UserLogService;
 
 @ManagedBean
 @SessionScoped
@@ -86,13 +74,13 @@ public class WallHandler implements Serializable
     public List<UserLogMessage> getMessagesByUser()
     {
     	List<UserLogMessage> messages = new ArrayList<UserLogMessage>();
-		
+		System.out.println("DEBUG id: " + this.id);
     	if (this.id > 0) {
     		WallResource wr = ClientHandler.getObjectResource("/wall/" + this.id, WallResource.class);
     		JsonRepresentation jsonRep;
 			try {
 				jsonRep = new JsonRepresentation(wr.getUserLogMessages());
-				messages = Converter.fromJsonToList(jsonRep.getText(), new TypeToken<List<User>>() {}.getType());
+				messages = Converter.fromJsonToList(jsonRep.getText(), new TypeToken<List<UserLogMessage>>() {}.getType());
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

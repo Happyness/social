@@ -3,7 +3,6 @@ package se.kth.backend.resource;
 import java.io.IOException;
 
 import org.hibernate.Transaction;
-import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
@@ -17,10 +16,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import se.kth.backend.model.dao.PrivateMessageDao;
-import se.kth.backend.model.dao.UserDao;
 import se.kth.common.PrivateMessageResource;
 import se.kth.common.model.bo.PrivateMessage;
-import se.kth.common.model.bo.User;
 
 public class PrivateMessageServerResource extends ServerResource implements
 		PrivateMessageResource {

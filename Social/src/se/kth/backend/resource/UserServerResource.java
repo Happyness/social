@@ -1,26 +1,18 @@
 package se.kth.backend.resource;
 
 import java.io.IOException;
-import java.util.Date;
 
 import org.hibernate.Transaction;
-import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
-
-import com.google.gson.Gson;
-
-import se.kth.backend.model.dao.PrivateMessageDao;
 import se.kth.backend.model.dao.UserDao;
 import se.kth.common.Converter;
 import se.kth.common.UserResource;
-import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
-import se.kth.common.model.bo.UserProfile;
 
 public class UserServerResource extends ServerResource implements UserResource
 {
@@ -89,6 +81,7 @@ public class UserServerResource extends ServerResource implements UserResource
 			try {
 				jsonRep = new JsonRepresentation(entity);
 				user = Converter.fromJson(jsonRep.getText(), User.class);
+				user.getUserProfile().setUser(user);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
