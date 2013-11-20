@@ -75,6 +75,10 @@ public class WallHandler implements Serializable
     {
     	List<UserLogMessage> messages = new ArrayList<UserLogMessage>();
 		System.out.println("DEBUG id: " + this.id);
+		if (this.id < 0) {
+			load();
+		}
+		
     	if (this.id > 0) {
     		Representation wr = ClientHandler.getNormalResource("/wall/" + this.id);
     		JsonRepresentation jsonRep;
@@ -105,6 +109,13 @@ public class WallHandler implements Serializable
 		}
     	
     	ClientHandler.releaseResource(jsonRep);
+    	clearForm();
+	}
+	
+	public void clearForm()
+	{
+		message = "";
+		response = "";
 	}
 
 	public String getMessage() {

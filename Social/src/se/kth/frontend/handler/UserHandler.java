@@ -173,9 +173,21 @@ public class UserHandler implements Serializable
 		try {
 			response = ur.createUser(jsonRep).getText();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		clearForm();
+	}
+	
+	public void clearForm()
+	{
+		name = "";
+		surname = "";
+		email = "";
+		username = "";
+		password = "";
+		response = "";
+		
 	}
 	
 	public List<User> getUsers() throws IOException

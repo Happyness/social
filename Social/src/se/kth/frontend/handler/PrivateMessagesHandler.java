@@ -59,10 +59,6 @@ public class PrivateMessagesHandler implements Serializable
     		PrivateMessagesResource pmr = ClientHandler.getObjectResource("/messages/" + id, PrivateMessagesResource.class);
     		Representation jsonRep = new JsonRepresentation(pmr.getMessages());
     		messagesToUser = Converter.fromJsonToList(jsonRep.getText(), new TypeToken<List<PrivateMessage>>() {}.getType());
-    		
-    		//messagesToUser = ur.getMessages();
-    		//messagesToUser = new PrivateMessageService().getMessagesToUser();
-    		//response += tokenSession.getProfile().getUserProfileId();
     	} else {
     		messagesToUser = new ArrayList<PrivateMessage>();
     	}
@@ -118,6 +114,14 @@ public class PrivateMessagesHandler implements Serializable
 		PrivateMessageResource pmr = ClientHandler.getObjectResource("/message/" + getTokenSession().getProfile().getUserProfileId(), PrivateMessageResource.class);
 		Representation jsonRep = new JsonRepresentation(jsonString);
 		response = pmr.sendMessage(jsonRep).getText();
+		
+		clearForm();
+	}
+	
+	public void clearForm()
+	{
+		message = "";
+		response = "";
 	}
 
 	public String getTo_id()
