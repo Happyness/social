@@ -56,6 +56,7 @@ public class UserServerResource extends ServerResource implements UserResource
 			try {
 				jsonRep = new JsonRepresentation(entity);
 				User user = Converter.fromJson(jsonRep.getText(), User.class);
+				user.getUserProfile().setUser(user);
 				User tmp = new User();
 				tmp.setUsername(user.getUsername());
 				
