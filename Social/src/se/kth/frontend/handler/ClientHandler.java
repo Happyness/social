@@ -2,8 +2,6 @@ package se.kth.frontend.handler;
 
 import java.io.IOException;
 
-import org.restlet.Client;
-import org.restlet.Context;
 import org.restlet.data.MediaType;
 import org.restlet.data.Protocol;
 import org.restlet.ext.json.JsonRepresentation;

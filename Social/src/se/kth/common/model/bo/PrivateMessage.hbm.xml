@@ -8,10 +8,10 @@
             <column name="PRIVATE_MESSAGE_ID" />
             <generator class="increment" />
         </id>
-        <many-to-one name="toUser" class="se.kth.common.model.bo.User" fetch="select">
+        <many-to-one name="toUser" class="se.kth.common.model.bo.User" fetch="select" lazy="false">
             <column name="TO_USER" not-null="true" />
         </many-to-one>
-        <many-to-one name="fromUser" class="se.kth.common.model.bo.User" fetch="select">
+        <many-to-one name="fromUser" class="se.kth.common.model.bo.User" fetch="select" lazy="false">
             <column name="FROM_USER" not-null="true" />
         </many-to-one>
         <property name="message" type="string">

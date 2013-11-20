@@ -5,26 +5,18 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import se.kth.backend.model.dao.UserDao;
 import se.kth.backend.resource.SecurityUtils;
 import se.kth.common.Converter;
 import se.kth.common.UserResource;
 import se.kth.common.UsersResource;
 import se.kth.common.model.bo.User;
-import se.kth.common.model.bo.UserLogMessage;
 import se.kth.common.model.bo.UserProfile;
-import se.kth.frontend.handler.service.UserService;
 
-import org.restlet.data.Form;
 import org.restlet.ext.json.JsonRepresentation;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 @ManagedBean

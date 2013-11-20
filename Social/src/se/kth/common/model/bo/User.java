@@ -6,9 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.Representation;
-
 import com.google.gson.annotations.Expose;
 
 /**
@@ -20,9 +17,9 @@ public class User implements java.io.Serializable {
 	@Expose
 	private Integer userId;
 	@Expose
-	public String username;
-	private String password;
+	private String username;
 	@Expose
+	private String password;
 	private Date userAdded;
 	@Expose
 	private UserProfile userProfile;

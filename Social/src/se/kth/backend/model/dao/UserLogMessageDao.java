@@ -5,11 +5,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
 
 import se.kth.backend.resource.HibernateUtil;
-import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserLogMessage;
 import static org.hibernate.criterion.Example.create;

@@ -1,7 +1,6 @@
 package se.kth.common;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.json.JSONException;
 import org.restlet.representation.Representation;

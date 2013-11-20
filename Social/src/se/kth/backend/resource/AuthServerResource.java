@@ -60,5 +60,4 @@ public class AuthServerResource extends ServerResource implements AuthResource {
 			 return new EmptyRepresentation();
 		}
 	}
-
 }
