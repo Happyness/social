@@ -20,7 +20,7 @@
         <property name="email" type="string">
             <column name="EMAIL" />
         </property>
-        <property name="dateOfBirth" type="date">
+        <property name="dateOfBirth" type="timestamp">
             <column name="DATE_OF_BIRTH" length="10" />
         </property>
     </class>
