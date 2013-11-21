@@ -23,7 +23,6 @@ import se.kth.common.Converter;
 import se.kth.common.WallResource;
 import se.kth.common.model.bo.User;
 import se.kth.frontend.handler.ClientHandler;
-import se.kth.frontend.handler.service.UserService;
 
 @ManagedBean
 @SessionScoped

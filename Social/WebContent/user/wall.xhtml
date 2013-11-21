@@ -13,7 +13,9 @@
     		<li>First name: <h:outputText value="#{profileHandler.firstName}"></h:outputText></li>
     		<li>Last name: <h:outputText value="#{profileHandler.surName}"></h:outputText></li>
     		<li>Email: <h:outputText value="#{profileHandler.email}"></h:outputText></li>
-    		<li>Date of Birth: <h:outputText value="#{profileHandler.dob}"></h:outputText></li>
+    		<li>Date of Birth: <h:outputText value="#{profileHandler.dob}">
+    			<f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+    		</h:outputText></li>
     	</ul>
     	<h:outputText value="#{wallHandler.response}" />
 <!--     	<h:outputText value="#{wallHandler.load()}"/> -->
@@ -30,7 +32,10 @@
 		<h1>Wall posts</h1>
 		<ul>
 			<c:forEach items="#{wallHandler.messagesByUser}" var="item">
-			<li><h:outputText value="#{item.messageSent}"/> : <strong><h:outputText value="#{item.message}"/></strong></li>
+			<li><h:outputText value="#{item.messageSent}">
+			<f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm"/>
+			</h:outputText>
+			 : <strong><h:outputText value="#{item.message}"/></strong></li>
 			</c:forEach>
 		</ul>
     </ui:define>

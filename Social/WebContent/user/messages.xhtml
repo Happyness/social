@@ -26,7 +26,9 @@
 		<ul>
 			<c:forEach items="#{privateMessagesHandler.messagesToUser}" var="item">
 			<li>
-				<h:outputText value="#{item.messageSent}"/> : 
+				<h:outputText value="#{item.messageSent}">
+				<f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm"/>
+				</h:outputText> : 
 				<strong><h:outputText value="#{item.message}"/></strong>
 				[From: <h:outputText value="#{item.fromUser.username}"/>]
 			</li>

@@ -94,7 +94,8 @@ public class WallHandler implements Serializable {
 		return messages;
 	}
 
-	public void save() {
+	public void save()
+	{
 		String jsonString = Converter.toJson(message);
 		JsonRepresentation jsonRep = new JsonRepresentation(jsonString);
 		System.out.println("Sending: " + jsonString);

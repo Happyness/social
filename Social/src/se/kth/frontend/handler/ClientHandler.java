@@ -12,7 +12,7 @@ import org.restlet.resource.ResourceException;
 
 public class ClientHandler
 {
-	public static final String server = "http://localhost:8182/social";
+	public static final String server = "http://130.237.84.171:8182/social";
 	
 	private static ClientResource getResource(String uri)
 	{
