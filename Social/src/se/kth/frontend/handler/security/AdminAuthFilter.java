@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Servlet filter which check if you are logged in as admin or not and redirect if required
+ */
 public class AdminAuthFilter implements Filter
 {
 	  private FilterConfig config;
@@ -32,10 +36,18 @@ public class AdminAuthFilter implements Filter
 	  }
 
 	  public void init(FilterConfig config) throws ServletException {
-	    this.config = config;
+	    this.setConfig(config);
 	  }
 
 	  public void destroy() {
-	    config = null;
+	    setConfig(null);
 	  }
+
+		public FilterConfig getConfig() {
+			return config;
+		}
+	
+		public void setConfig(FilterConfig config) {
+			this.config = config;
+		}
 	}

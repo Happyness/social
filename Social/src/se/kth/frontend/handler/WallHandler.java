@@ -23,6 +23,11 @@ import se.kth.common.model.bo.UserLogMessage;
 import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.security.TokenSession;
 
+
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Bean to handle wall/log message page, both sending and printing status updates
+ */
 @ManagedBean
 @SessionScoped
 public class WallHandler implements Serializable {

@@ -20,6 +20,11 @@ import se.kth.common.model.bo.UserProfile;
 import org.restlet.ext.json.JsonRepresentation;
 import com.google.gson.reflect.TypeToken;
 
+
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description A bean handling the creation of users and fetch users
+ */
 @ManagedBean
 public class UserHandler implements Serializable
 {

@@ -10,17 +10,18 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import org.hibernate.Transaction;
 import org.restlet.ext.json.JsonRepresentation;
 
-import se.kth.backend.model.dao.UserDao;
-import se.kth.backend.resource.HibernateUtil;
-import se.kth.backend.resource.UserServerResource;
 import se.kth.common.Converter;
 import se.kth.common.ProfileResource;
 import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.security.TokenSession;
 
+
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Bean to handle profile page
+ */
 @ManagedBean
 @SessionScoped
 public class ProfileHandler extends ClientHandler implements Serializable
@@ -72,6 +73,11 @@ public class ProfileHandler extends ClientHandler implements Serializable
     		setDob(profile.getDateOfBirth());
     	
     	return "";
+	}
+	
+	public UserProfile getProfile()
+	{
+		return this.profile;
 	}
 
 	public void setProfile(UserProfile profile) {

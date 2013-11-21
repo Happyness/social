@@ -22,8 +22,6 @@ public class ServerUtil extends ServerResource {
 					throw new RuntimeException("Server port already bound!");
 				}
 			}
-		} else {
-			// Already started?
 		}
 	}
 }

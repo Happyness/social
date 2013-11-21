@@ -7,6 +7,10 @@ import javax.faces.bean.SessionScoped;
 
 import se.kth.common.model.bo.UserProfile;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Token session bean to store profile, active session and if admin or not.
+ */
 @ManagedBean
 @SessionScoped
 public class TokenSession implements Serializable

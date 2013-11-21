@@ -3,13 +3,15 @@ package se.kth.frontend.handler;
 import java.io.IOException;
 
 import org.restlet.data.MediaType;
-import org.restlet.data.Protocol;
-import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.EmptyRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Client handler for REST communication through our web service server
+ */
 public class ClientHandler
 {
 	public static final String server = "http://130.237.84.171:8182/social";

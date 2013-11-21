@@ -24,6 +24,10 @@ import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserProfile;
 import se.kth.frontend.handler.security.TokenSession;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Bean to handle private message page, both sending and printing messages to inbox
+ */
 @ManagedBean
 @SessionScoped
 public class PrivateMessagesHandler implements Serializable

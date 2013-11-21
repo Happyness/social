@@ -3,27 +3,22 @@ package se.kth.frontend.handler.security;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
 import org.restlet.ext.json.JsonRepresentation;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import se.kth.backend.resource.SecurityUtils;
 import se.kth.common.AuthResource;
 import se.kth.common.Converter;
-import se.kth.common.WallResource;
 import se.kth.common.model.bo.User;
 import se.kth.frontend.handler.ClientHandler;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Authentification bean to handle login and logout
+ */
 @ManagedBean
 @SessionScoped
 public class Authentication implements Serializable
@@ -78,9 +73,7 @@ public class Authentication implements Serializable
 		
 		String jsonString = Converter.toJson(jsonArray);
 		JsonRepresentation jsonRep = new JsonRepresentation(jsonString);
-		
-//		UserService uh = new UserService();
-//		
+				
 		if (username.equals("admin") && password.equals("admin"))
 		{
 			response = "You are now logged in as admin";
@@ -104,7 +97,6 @@ public class Authentication implements Serializable
 				return "/index?faces-redirect=true";
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

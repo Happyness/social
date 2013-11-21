@@ -1,5 +1,10 @@
 package se.kth.frontend.handler;
 
+
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description A selectfield helper for the bean, to output select field with ease.
+ */
 public class SelectField {
 	public String label;
 	public String value;
