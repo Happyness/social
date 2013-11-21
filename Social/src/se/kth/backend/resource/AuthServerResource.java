@@ -20,6 +20,10 @@ import se.kth.common.AuthResource;
 import se.kth.common.Converter;
 import se.kth.common.model.bo.User;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description ServerResource taking care of login requests
+ */
 public class AuthServerResource extends ServerResource implements AuthResource {
 	
 	UserDao ud;

@@ -13,6 +13,10 @@ import se.kth.common.Converter;
 import se.kth.common.UsersResource;
 import se.kth.common.model.bo.User;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description ServerResource taking care of getting list of User
+ */
 public class UsersServerResource extends ServerResource implements UsersResource {
 	
 	@Override

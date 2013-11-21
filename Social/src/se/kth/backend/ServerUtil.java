@@ -6,6 +6,10 @@ import org.restlet.Component;
 import org.restlet.data.Protocol;
 import org.restlet.resource.ServerResource;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Server for web services
+ */
 public class ServerUtil extends ServerResource {
 
 	public static void main(String[] args)

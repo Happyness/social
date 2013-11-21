@@ -3,6 +3,10 @@ package se.kth.backend.resource;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Security configuration
+ */
 public class SecurityUtils
 {
 	public static String getHash(String value)

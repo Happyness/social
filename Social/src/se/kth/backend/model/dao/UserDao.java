@@ -9,6 +9,10 @@ import org.hibernate.criterion.Example;
 import se.kth.backend.resource.HibernateUtil;
 import se.kth.common.model.bo.User;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Data access object for Users uses Hibernate to communicate with database
+ */
 public class UserDao {
 	
 	private final SessionFactory sessionFactory = this.getSessionFactory();

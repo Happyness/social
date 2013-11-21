@@ -15,6 +15,10 @@ import se.kth.common.PrivateMessagesResource;
 import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description ServerResource taking care of getting list of PrivateMessage
+ */
 public class PrivateMessagesServerResource extends ServerResource implements PrivateMessagesResource
 {
 	String id;

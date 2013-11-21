@@ -12,6 +12,10 @@ import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserLogMessage;
 import static org.hibernate.criterion.Example.create;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Data access object for Wall Messages uses Hibernate to communicate with database
+ */
 public class UserLogMessageDao {
 	
 	private final SessionFactory sessionFactory = this.getSessionFactory();
