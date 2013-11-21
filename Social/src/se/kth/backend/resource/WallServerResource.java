@@ -21,6 +21,11 @@ import se.kth.common.WallResource;
 import se.kth.common.model.bo.User;
 import se.kth.common.model.bo.UserLogMessage;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description ServerResource taking care of getting list of UserLogMessage
+ * and posting UserLogMessage
+ */
 public class WallServerResource extends ServerResource implements WallResource {
 	
 	int id = -1;

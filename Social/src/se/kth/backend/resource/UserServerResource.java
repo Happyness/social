@@ -14,6 +14,10 @@ import se.kth.common.Converter;
 import se.kth.common.UserResource;
 import se.kth.common.model.bo.User;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description ServerResource taking care of getting and posting User
+ */
 public class UserServerResource extends ServerResource implements UserResource
 {
 	String id;

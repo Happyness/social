@@ -13,6 +13,10 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonSerializer;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Helper class to convert from object to json and json to object.
+ */
 public class Converter
 {
 	private static Gson gson = null;

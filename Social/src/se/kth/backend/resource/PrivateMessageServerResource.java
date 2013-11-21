@@ -21,6 +21,10 @@ import se.kth.common.Converter;
 import se.kth.common.PrivateMessageResource;
 import se.kth.common.model.bo.PrivateMessage;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description ServerResource taking care of getting and posting PrivateMessage
+ */
 public class PrivateMessageServerResource extends ServerResource implements
 		PrivateMessageResource {
 	String id;

@@ -8,6 +8,10 @@ import se.kth.backend.resource.HibernateUtil;
 import se.kth.common.model.bo.UserProfile;
 import static org.hibernate.criterion.Example.create;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Data access object for User Profiles uses Hibernate to communicate with database
+ */
 public class UserProfileDao {
 	
 	private final SessionFactory sessionFactory = this.getSessionFactory();

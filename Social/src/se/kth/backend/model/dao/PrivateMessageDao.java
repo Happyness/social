@@ -12,6 +12,10 @@ import se.kth.common.model.bo.PrivateMessage;
 import se.kth.common.model.bo.User;
 import static org.hibernate.criterion.Example.create;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Data access object for PrivateMessages uses Hibernate to communicate with database
+ */
 public class PrivateMessageDao {
 	
 	private final SessionFactory sessionFactory = this.getSessionFactory();

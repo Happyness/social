@@ -12,6 +12,10 @@ import se.kth.backend.resource.UserServerResource;
 import se.kth.backend.resource.UsersServerResource;
 import se.kth.backend.resource.WallServerResource;
 
+/**
+ * @author Mats Maatson and Joel Denke
+ * @description Routing the web services to ServerResource classes for handling requests
+ */
 public class SocialApplication extends Application
 {
 	@Override
